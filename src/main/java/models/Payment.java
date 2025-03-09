@@ -6,19 +6,17 @@ import lombok.Setter;
 import models.enums.PaymentMethod;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "payments")
-public class PaymentModel extends BaseModel{
+public class Payment extends BaseModel{
 
     @ManyToOne
     @JoinColumn(name = "invoice_id", nullable = false)
-    private InvoiceModel invoice;
+    private Invoice invoice;
 
     @ManyToOne
     @JoinColumn(name = "resident_id", nullable = false)

@@ -1,11 +1,10 @@
 package repositories;
 
-import models.FeeModel;
-import models.InvoiceModel;
+import models.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface InvoiceRepository extends JpaRepository<InvoiceModel, Long>{
+public interface InvoiceRepository extends JpaRepository<Invoice, Long>{
 
 }

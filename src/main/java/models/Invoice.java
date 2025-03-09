@@ -6,21 +6,21 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import models.enums.InvoiceStatus;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "invoices")
-public class InvoiceModel extends BaseModel{
+public class Invoice extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "resident_id", nullable = false)
     private User resident;
 
     @ManyToOne
     @JoinColumn(name = "fee_id", nullable = false)
-    private FeeModel fee;
+    private Fee fee;
 
     @Column(nullable = false)
     private LocalDate issueDate;

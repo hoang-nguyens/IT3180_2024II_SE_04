@@ -3,16 +3,18 @@ package models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import models.enums.FeeStatus;
+import models.enums.FeeType;
+import models.enums.FeeUnit;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "fees")
-public class FeeModel extends BaseModel{
+public class Fee extends BaseModel{
 
     @Column(nullable = false, length = 255)
     private String name;
@@ -26,7 +28,15 @@ public class FeeModel extends BaseModel{
     @Column(nullable = false)
     private BigDecimal amount;
 
-    @Column(nullable = false)
-    private LocalDate dueDate;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 50)
+    private FeeUnit unit;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private FeeType feeType; // Loại phí (Cố định hay phát sinh)
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private FeeStatus status = FeeStatus.ACTIVE;
 }

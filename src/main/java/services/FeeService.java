@@ -57,6 +57,10 @@ public class FeeService {
                 .orElseThrow(() -> new EntityNotFoundException("Fee not found with ID: " + feeId));
     }
 
+    public List<Fee> getFeeByType(FeeType feeType) {
+        return feeRepository.findByFeeType(feeType);
+    }
+
     public List<Fee> getAllFees() {
         return feeRepository.findAll();
     }

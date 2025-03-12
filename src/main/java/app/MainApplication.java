@@ -1,5 +1,6 @@
 package app;
 
+import config.AppConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,8 +8,13 @@ import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+
+import java.util.Arrays;
 
 @SpringBootApplication
+@Import(AppConfig.class)
 public class MainApplication extends Application {
 
     private static ConfigurableApplicationContext springContext;
@@ -21,9 +27,11 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
+        Arrays.stream(springContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/fee-management.fxml"));
+//        fxmlLoader.setControllerFactory(springContext::getBean);
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
-        primaryStage.setTitle("Đăng nhập");
+        primaryStage.setTitle("Quản lý khoản thu");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

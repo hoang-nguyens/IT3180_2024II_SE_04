@@ -5,6 +5,7 @@ import models.Fee;
 import models.enums.FeeType;
 import models.enums.FeeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import repositories.FeeRepository;
 
@@ -13,9 +14,13 @@ import java.util.List;
 
 @Service
 public class FeeService {
-    @Autowired
-    private FeeRepository feeRepository;
+//    @Autowired
+    private final FeeRepository feeRepository;
 
+//    public FeeService() {
+//        this.feeRepository = new FeeRepository ;
+//    }
+    @Autowired
     public FeeService(FeeRepository feeRepository) {
         this.feeRepository = feeRepository;
     }

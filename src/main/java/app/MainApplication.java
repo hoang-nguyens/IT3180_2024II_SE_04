@@ -1,5 +1,6 @@
 package app;
 
+import config.AppConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,9 +9,11 @@ import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication(scanBasePackages = {"app", "repositories", "controllers", "services", "repositories"})
-
+//@SpringBootApplication(scanBasePackages = {"app", "repositories", "controllers", "services", "repositories"})
+@SpringBootApplication
+@Import({AppConfig.class})
 //@SpringBootApplication
 public class MainApplication extends Application {
 

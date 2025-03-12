@@ -2,27 +2,34 @@ package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"app", "repositories", "controllers", "services", "repositories"})
+
+//@SpringBootApplication
 public class MainApplication extends Application {
 
     private static ConfigurableApplicationContext springContext;
 
     @Override
     public void init() {
-        // Khởi động Spring Boot trước khi JavaFX chạy
+        // Start Spring Boot
         springContext = SpringApplication.run(MainApplication.class);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean); // Inject Spring Beans
+
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 400, 300);
+
         primaryStage.setTitle("Đăng nhập");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -30,8 +37,10 @@ public class MainApplication extends Application {
 
     @Override
     public void stop() {
-        // Đóng Spring Boot khi ứng dụng JavaFX tắt
-        springContext.close();
+        // Close Spring Boot when JavaFX stops
+        if (springContext != null) {
+            springContext.close();
+        }
     }
 
     public static void main(String[] args) {

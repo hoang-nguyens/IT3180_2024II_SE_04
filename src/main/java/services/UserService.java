@@ -3,6 +3,7 @@ package services;
 import models.User;
 import models.enums.Status;
 import models.enums.Role;
+import org.springframework.jdbc.core.JdbcTemplate;
 import repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,12 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; // Dùng interface thay vì class cụ thể
-
+    private final JdbcTemplate jdbcTemplate;
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public User registerUser(String username, String email, String password) {
@@ -51,5 +53,20 @@ public class UserService {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Truy vấn mật khẩu đã băm từ cơ sở dữ liệu bằng tên người dùng.
+     * @param username Tên đăng nhập của người dùng.
+     * @return Optional chứa mật khẩu đã băm nếu tìm thấy, ngược lại trả về Optional.empty().
+     */
+    public Optional<String> getPasswordByUsername(String username) {
+        try {
+            String sql = "SELECT password_hash FROM users WHERE username = ?";
+            String hashedPassword = jdbcTemplate.queryForObject(sql, new Object[]{username}, String.class);
+            return Optional.ofNullable(hashedPassword);
+        } catch (Exception e) {
+            return Optional.empty(); // Trả về Optional rỗng nếu tài khoản không tồn tại
+        }
     }
 }

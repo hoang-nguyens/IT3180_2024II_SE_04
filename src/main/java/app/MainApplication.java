@@ -31,12 +31,16 @@ public class MainApplication extends Application {
         fxmlLoader.setControllerFactory(springContext::getBean); // Inject Spring Beans
 
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 850, 650); // Chỉnh lại kích thước cho đúng với FXML
 
         primaryStage.setTitle("Đăng nhập");
         primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
+        primaryStage.setResizable(false); // Ngăn người dùng chỉnh sửa kích thước
         primaryStage.show();
     }
+
+
 
     @Override
     public void stop() {

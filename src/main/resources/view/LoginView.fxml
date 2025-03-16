@@ -22,7 +22,7 @@
             <right>
                 <AnchorPane prefHeight="651.0" prefWidth="432.0" BorderPane.alignment="CENTER">
                     <children>
-                        <ImageView fitHeight="667.0" fitWidth="571.0" layoutX="-151.0" layoutY="23.0" preserveRatio="true">
+                        <ImageView fitHeight="735.0" fitWidth="672.0" layoutX="-176.0" layoutY="-49.0" preserveRatio="true">
                             <image>
                                 <Image url="@images/Pasted-20250315-215425_pixian_ai.png" />
                             </image>
@@ -31,7 +31,7 @@
                 </AnchorPane>
             </right>
             <left>
-                <AnchorPane prefHeight="601.0" prefWidth="415.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="687.0" prefWidth="449.0" BorderPane.alignment="CENTER">
                     <children>
                         <Text fill="WHITE" layoutX="106.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHUNG CƯ BLUEMOON" textAlignment="CENTER" wrappingWidth="306.0599536895752">
                             <font>
@@ -52,9 +52,9 @@
                             <HBox prefHeight="8.0" prefWidth="180.0">
                                 <children>
                                     <Pane prefHeight="25.0" prefWidth="37.0" />
-                                    <Label text="Chưa có tài khoản ? " textAlignment="CENTER" textFill="#333f49" />
+                                    <Label prefHeight="42.0" prefWidth="111.0" text="Chưa có tài khoản ? " textAlignment="CENTER" textFill="#333f49" />
                                     <Pane prefHeight="25.0" prefWidth="1.0" />
-                                    <Hyperlink fx:id="registerLink" text="Đăng kí" />
+                                    <Hyperlink fx:id="registerLink" onAction="#handleRegisterClick" prefHeight="13.0" prefWidth="50.0" text="Đăng kí" />
                                 </children>
                             </HBox>
                             <Hyperlink prefHeight="0.0" prefWidth="101.0" text="Quên mật khẩu ?" textAlignment="CENTER" />
@@ -62,7 +62,7 @@
                         </VBox>
 
                         <!-- Khung đăng ký -->
-                        <VBox fx:id="registerBox" alignment="CENTER" layoutX="42.0" layoutY="129.0" prefHeight="425.0" prefWidth="415.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
+                        <VBox fx:id="registerBox" alignment="CENTER" layoutX="42.0" layoutY="129.0" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
                             <padding>
                                 <Insets bottom="20" left="20" right="20" top="20" />
                             </padding>
@@ -116,8 +116,8 @@
                                 <HBox prefHeight="8.0" prefWidth="180.0">
                                     <children>
                                         <Pane prefHeight="25.0" prefWidth="98.0" />
-                                        <Label text="Đã có tài khoản ?" textAlignment="CENTER" textFill="#333f49" />
-                                        <Hyperlink fx:id="loginLink" text="Đăng nhập" />
+                                        <Label prefHeight="29.0" prefWidth="94.0" text="Đã có tài khoản ?" textAlignment="CENTER" textFill="#333f49" />
+                                        <Hyperlink fx:id="loginLink" onAction="#handleLoginClick" text="Đăng nhập" />
                                     </children>
                                 </HBox>
                                 <Label fx:id="registerStatusLabel" style="-fx-text-fill: red;" text="" />

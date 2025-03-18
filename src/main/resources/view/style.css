@@ -1,0 +1,37 @@
+/* Định dạng nền chính */
+.leftside {
+    -fx-background-color: linear-gradient(to bottom right, #C0D9FF, #7A9EE6); /* Màu xanh nhẹ hơn */
+}
+
+/* Định dạng khu vực đăng nhập */
+.root {
+    -fx-background-color: rgba(255, 255, 255, 0.3); /* Tăng độ trong suốt để thấy được nền */
+    -fx-background-radius: 20;
+    -fx-padding: 25px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 10);
+}
+
+/* Định dạng ô nhập liệu */
+.text-field, .password-field {
+    -fx-background-color: rgba(255, 255, 255, 0.6); /* Màu trắng trong suốt nhẹ */
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Định dạng nút đăng nhập */
+.button {
+    -fx-background-color: rgba(74, 144, 226, 0.8); /* Nút có độ trong suốt nhẹ */
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+.button:hover {
+    -fx-background-color: rgba(53, 122, 189, 0.9);
+}
+
+

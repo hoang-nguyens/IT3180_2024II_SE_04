@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.FeeViewController">
+    <!-- TableView hiển thị danh sách Fee -->
+    <TableView fx:id="feeTable">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn"/>
+            <TableColumn text="Loại khoản thu" fx:id="categoryColumn"/>
+            <TableColumn text="Nhóm khoản thu" fx:id="subCategoryColumn"/>
+            <TableColumn text="Số tiền" fx:id="amountColumn"/>
+            <TableColumn text="Đơn vị tính" fx:id="unitColumn"/>
+            <TableColumn text="Kỳ thanh toán" fx:id="billPeriodColumn"/>
+            <TableColumn text="Mô tả" fx:id="descriptionColumn"/>
+            <TableColumn text="Ngày bắt đầu" fx:id="startDateColumn"/>
+            <TableColumn text="Ngày kết thúc" fx:id="endDateColumn"/> <!-- Sửa tiêu đề để phù hợp -->
+        </columns>
+    </TableView>
+
+    <!-- Form nhập liệu -->
+    <GridPane hgap="10" vgap="10">
+        <children>
+            <Label text="Loại khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Đơn vị tính:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <ComboBox fx:id="unitComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <Label text="Kỳ thanh toán:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <ComboBox fx:id="billPeriodComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <Label text="Mô tả:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+            <Label text="Ngày bắt đầu:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+            <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+            <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        </children>
+    </GridPane>
+
+
+    <!-- Các nút điều khiển -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="addButton" text="Thêm" onAction="#handleAdd"/>
+        <Button fx:id="updateButton" text="Sửa" onAction="#handleEdit"/>
+        <Button fx:id="deleteButton" text="Xóa" onAction="#handleDelete"/>
+    </HBox>
+
+    <!-- Label hiển thị trạng thái -->
+    <Label fx:id="statusLabel" text="Trạng thái"/>
+</VBox>

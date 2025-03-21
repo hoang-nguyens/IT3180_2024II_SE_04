@@ -15,11 +15,11 @@ import java.util.Date;
 public class Payment extends BaseModel{
 
     @ManyToOne
-    @JoinColumn(name = "invoice_id", nullable = false)
+    @JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
     private Invoice invoice;
 
     @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
+    @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
     private User resident;
 
     @Column(nullable = false)

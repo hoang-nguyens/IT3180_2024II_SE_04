@@ -15,11 +15,11 @@ import models.enums.InvoiceStatus;
 @Table(name = "invoices")
 public class Invoice extends BaseModel{
     @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
+    @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
     private User resident;
 
     @ManyToOne
-    @JoinColumn(name = "fee_id", nullable = false)
+    @JoinColumn(name = "fee_id", referencedColumnName = "id", nullable = false)
     private Fee fee;
 
     @Column(nullable = false)

@@ -3,8 +3,7 @@ package models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import models.enums.FeeStatus;
-import models.enums.FeeType;
+import models.enums.BillPeriod;
 import models.enums.FeeUnit;
 
 import java.math.BigDecimal;
@@ -13,17 +12,13 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "fees")
+@Table(name = "fees2")
 public class Fee extends BaseModel{
-
-    @Column(nullable = false, length = 255)
-    private String name;
-
-    @Column(length = 255)
+    @Column(nullable = false, length=50)
     private String category;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @Column(nullable = false, length = 50)
+    private String subCategory;
 
     @Column(nullable = false)
     private BigDecimal amount;
@@ -33,10 +28,27 @@ public class Fee extends BaseModel{
     private FeeUnit unit;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FeeType feeType; // Loại phí (Cố định hay phát sinh)
+    @Column(nullable = false, length = 50)
+    private BillPeriod billPeriod;
 
-    @Enumerated(EnumType.STRING)
+    @Lob
+    private String description;
+
     @Column(nullable = false)
-    private FeeStatus status = FeeStatus.ACTIVE;
-}
+    private LocalDate startDate;
+
+    @Column(nullable = true)
+    private LocalDate endDate;
+
+    public Fee(){};
+
+    public Fee(String category, String subCategory, BigDecimal amount, FeeUnit unit, BillPeriod billPeriod, String description, LocalDate startDate, LocalDate endDate) {
+        this.category = category;
+        this.subCategory = subCategory;
+        this.amount = amount;
+        this.unit = unit;
+        this.billPeriod = billPeriod;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }}

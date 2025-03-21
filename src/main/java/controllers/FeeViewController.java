@@ -4,24 +4,34 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.Fee;
+import models.FeeCategory;
+import models.enums.BillPeriod;
 import models.enums.FeeStatus;
 import models.enums.FeeType;
 import models.enums.FeeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import services.FeeCategoryService;
 import services.FeeService;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FeeViewController {
     @Autowired
     private FeeService feeService;
+    @Autowired
+    private FeeCategoryService feeCategoryService;
+
+//    public FeeViewController() {
+//        this.feeService = MainApplication.getBean(FeeService.class);
+//    }
 
 //    public FeeViewController(FeeService feeService) {
 //        this.feeService = feeService;
@@ -33,25 +43,40 @@ public class FeeViewController {
     @FXML
     private TableColumn<Fee, Integer> idColumn;
     @FXML
-    private TableColumn<Fee, String> nameColumn;
-    @FXML
     private TableColumn<Fee, String> categoryColumn;
+    @FXML
+    private TableColumn<Fee, String> subCategoryColumn;
     @FXML
     private TableColumn<Fee, BigDecimal> amountColumn;
     @FXML
-    private TableColumn<Fee, FeeStatus> statusColumn;
+    private TableColumn<Fee, FeeUnit> unitColumn;
     @FXML
-    private TableColumn<Fee, FeeType> feeTypeColumn;
+    private TableColumn<Fee, BillPeriod> billPeriodColumn;
     @FXML
-    private TextField nameField;
+    private TableColumn<Fee, String> descriptionColumn;
     @FXML
-    private TextField categoryField;
+    private TableColumn<Fee, LocalDate> startDateColumn;
+    @FXML
+    private TableColumn<Fee, LocalDate> endDateColumn;
+
+    //    @FXML
+//    private TextField categoryField;
+//    @FXML
+//    private TextField subCategoryField;
     @FXML
     private TextField amountField;
     @FXML
+    private ComboBox<String> categoryComboBox;
+    @FXML
+    private ComboBox<String> subCategoryComboBox;
+    @FXML
     private ComboBox<FeeUnit> unitComboBox;
     @FXML
-    private ComboBox<FeeType> feeTypeComboBox;
+    private ComboBox<BillPeriod> billPeriodComboBox;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
     @FXML
     private TextArea descriptionArea;
     @FXML
@@ -64,21 +89,45 @@ public class FeeViewController {
     private Button deleteButton;
 
     private ObservableList<Fee> feeList = FXCollections.observableArrayList();
+    private ObservableList<String> categoryList = FXCollections.observableArrayList();
+    private ObservableList<String> subCategoryList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         // Setup table columns
 //        System.out.println("OK !!!!");
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        categoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+        subCategoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubCategory()));
         amountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
-        feeTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFeeType()));
+        unitColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUnit()));
+        billPeriodColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBillPeriod()));
+        descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
+        startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
+        endDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDate()));
 
         // Load fee data
         loadFees();
+        loadCategories();
 
         // Setup combo boxes
+        categoryComboBox.setItems(categoryList);
         unitComboBox.setItems(FXCollections.observableArrayList(FeeUnit.values()));
-        feeTypeComboBox.setItems(FXCollections.observableArrayList(FeeType.values()));
+        billPeriodComboBox.setItems(FXCollections.observableArrayList(BillPeriod.values()));
+
+        categoryComboBox.setOnAction(event -> loadSubCategories());
+        categoryComboBox.setEditable(true);
+        subCategoryComboBox.setEditable(true);
+
+        categoryComboBox.getEditor().setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) {
+                addCategory();
+            }
+        });
+        subCategoryComboBox.getEditor().setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) {
+                addSubCategory();
+            }
+        });
 
         // Table selection listener
         feeTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -94,31 +143,78 @@ public class FeeViewController {
         feeTable.setItems(feeList);
     }
 
+    private void loadCategories() {
+        List<String> categories = feeCategoryService.getParentCategoryNames();
+        categoryList.setAll(categories);
+    }
+
+    private void loadSubCategories() {
+        String selectedCategory = categoryComboBox.getValue();
+        System.out.println(selectedCategory);
+        if (!selectedCategory.isEmpty()) {
+            List<String> subCategories = feeCategoryService.getSubCategoriesNames(selectedCategory);
+            System.out.println(subCategories);
+            subCategoryList.setAll(subCategories);
+            subCategoryComboBox.setItems(subCategoryList);
+        }
+    }
+
+
     private void populateForm(Fee fee) {
-        nameField.setText(fee.getName());
-        categoryField.setText(fee.getCategory());
+        categoryComboBox.setValue(fee.getCategory());
+        subCategoryComboBox.setValue(fee.getSubCategory());
         amountField.setText(fee.getAmount().toString());
         unitComboBox.setValue(fee.getUnit());
-        feeTypeComboBox.setValue(fee.getFeeType());
+        billPeriodComboBox.setValue(fee.getBillPeriod());
         descriptionArea.setText(fee.getDescription());
+        startDatePicker.setValue(fee.getStartDate());
+        endDatePicker.setValue(fee.getEndDate());
+    }
+
+    private void addCategory() {
+        String newCategory = categoryComboBox.getEditor().getText().trim();
+        if (newCategory.isEmpty()) {
+            showAlert("Vui lòng chọn danh mục cha trước!");
+            return;
+        }
+        if (!categoryList.contains(newCategory)) {
+            FeeCategory newFeeCategory = feeCategoryService.createFeeCategory(newCategory, null);;
+            categoryList.add(newCategory);
+            categoryComboBox.setItems(FXCollections.observableArrayList(categoryList));
+            categoryComboBox.setValue(newCategory);
+        }
+    }
+
+    private void addSubCategory() {
+        String selectedCategory = categoryComboBox.getValue(); // Lấy danh mục cha
+        if (selectedCategory.isEmpty()) {
+            showAlert("Vui lòng chọn danh mục cha trước!");
+            return;
+        }
+        String newSubCategory = subCategoryComboBox.getEditor().getText().trim();
+        if (newSubCategory.isEmpty()) {
+            showAlert("Vui lòng nhập danh mục con!");
+            return;
+        }
+        FeeCategory selectedFeeCategory = feeCategoryService.findTopLevelCategoryByName(selectedCategory);
+        if (!subCategoryList.contains(newSubCategory)) {
+            FeeCategory subCategory = feeCategoryService.createFeeCategory(newSubCategory, selectedFeeCategory);
+            subCategoryList.add(newSubCategory);
+            subCategoryComboBox.setItems(FXCollections.observableArrayList(subCategoryList));
+            subCategoryComboBox.setValue(newSubCategory);
+        }
     }
 
     @FXML
     private void handleAdd() {
         try {
-            Fee newFee = new Fee();
-            newFee.setName(nameField.getText());
-            newFee.setCategory(categoryField.getText());
-            newFee.setAmount(new BigDecimal(amountField.getText()));
-            newFee.setUnit(unitComboBox.getValue());
-            newFee.setFeeType(feeTypeComboBox.getValue());
-            newFee.setDescription(descriptionArea.getText());
-            newFee.setStatus(FeeStatus.ACTIVE);
+            String selectedCategory = categoryComboBox.getValue();
+            String selectedSubCategory = subCategoryComboBox.getValue();
 
             Fee savedFee = feeService.createFee(
-                    newFee.getName(), newFee.getCategory(), newFee.getDescription(),
-                    newFee.getAmount(), newFee.getUnit(), newFee.getFeeType()
-            );
+                    selectedCategory, selectedSubCategory, new BigDecimal(amountField.getText()),
+                    unitComboBox.getValue(), billPeriodComboBox.getValue(), descriptionArea.getText(),
+                    startDatePicker.getValue(), endDatePicker.getValue());
 
             feeList.add(savedFee);
             feeTable.refresh();
@@ -137,18 +233,9 @@ public class FeeViewController {
         }
 
         try {
-            selectedFee.setName(nameField.getText());
-            selectedFee.setCategory(categoryField.getText());
-            selectedFee.setAmount(new BigDecimal(amountField.getText()));
-            selectedFee.setUnit(unitComboBox.getValue());
-            selectedFee.setFeeType(feeTypeComboBox.getValue());
-            selectedFee.setDescription(descriptionArea.getText());
-
-            Fee updatedFee = feeService.updateFee(
-                    selectedFee.getId(), selectedFee.getName(), selectedFee.getCategory(),
-                    selectedFee.getDescription(), selectedFee.getAmount(),
-                    selectedFee.getUnit(), selectedFee.getFeeType()
-            );
+            Fee updatedFee = feeService.updateFee(selectedFee.getId(), new BigDecimal(amountField.getText()),
+                    unitComboBox.getValue(), billPeriodComboBox.getValue(),
+                    descriptionArea.getText(), endDatePicker.getValue());
 
             feeTable.refresh();
             statusLabel.setText("Cập nhật khoản thu thành công!");
@@ -173,6 +260,14 @@ public class FeeViewController {
         } catch (Exception e) {
             statusLabel.setText("Lỗi: " + e.getMessage());
         }
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Thông báo");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

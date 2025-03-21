@@ -1,18 +1,22 @@
 package controllers;
 
 import models.Fee;
+import models.enums.BillPeriod;
 import models.enums.FeeType;
 import models.enums.FeeUnit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.FeeService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/fee")
 public class FeeController {
+    @Autowired
     private final FeeService feeService;
 
     public FeeController(FeeService feeService) {
@@ -31,24 +35,25 @@ public class FeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Fee> createFee(@RequestParam String name,
-                                         @RequestParam String category,
-                                         @RequestParam String description,
+    public ResponseEntity<Fee> createFee(@RequestParam String category,
+                                         @RequestParam String subCategory,
                                          @RequestParam BigDecimal amount,
-                                         @RequestParam FeeUnit feeUnit,
-                                         @RequestParam FeeType feeType) {
-        return ResponseEntity.ok(feeService.createFee(name, category, description, amount, feeUnit, feeType));
+                                         @RequestParam FeeUnit unit,
+                                         @RequestParam BillPeriod billPeriod,
+                                         @RequestParam String description,
+                                         @RequestParam LocalDate startDate,
+                                         @RequestParam LocalDate endDate) {
+        return ResponseEntity.ok(feeService.createFee(category, subCategory, amount, unit, billPeriod, description, startDate, endDate));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Fee> updateFee(@PathVariable Long id,
-                                         @RequestParam String name,
-                                         @RequestParam String category,
-                                         @RequestParam String description,
                                          @RequestParam BigDecimal amount,
-                                         @RequestParam FeeUnit feeUnit,
-                                         @RequestParam FeeType feeType){
-        return ResponseEntity.ok(feeService.updateFee(id, name, category, description, amount, feeUnit, feeType));
+                                         @RequestParam FeeUnit unit,
+                                         @RequestParam BillPeriod billPeriod,
+                                         @RequestParam String description,
+                                         @RequestParam LocalDate endDate) {
+        return ResponseEntity.ok(feeService.updateFee(id, amount, unit, billPeriod, description, endDate));
     }
 
     @DeleteMapping("/{id}")

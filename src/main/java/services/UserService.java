@@ -69,4 +69,28 @@ public class UserService {
             return Optional.empty(); // Trả về Optional rỗng nếu tài khoản không tồn tại
         }
     }
+
+    public void addUser(String username, String email, String password) {
+        String sql = "INSERT INTO users (username, email, password_hash, role, status, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,username, email, passwordEncoder.encode(password),"user", Status.ACTIVE.name().toLowerCase(), LocalDateTime.now());
+    }
+
+    public void updatePasswordByUsername(String username, String newPassword) {
+            String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+        jdbcTemplate.update(sql, passwordEncoder.encode(newPassword), username);
+    }
+
+
+    public Optional<String> getEmailByUsername(String username) {
+        try {
+            String sql = "SELECT email FROM users WHERE username = ?";
+            String email = jdbcTemplate.queryForObject(sql, new Object[]{username}, String.class);
+            return Optional.ofNullable(email);
+        } catch (Exception e) {
+            return Optional.empty(); // Trả về Optional rỗng nếu không tìm thấy tài khoản
+        }
+    }
+
+
 }

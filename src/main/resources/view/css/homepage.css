@@ -1,0 +1,61 @@
+
+.root{
+    -fx-background-color: #EAEEF4;
+}
+
+.side_ankerpane{
+   -fx-background-color: #353A56;
+   -fx-border-width: 2px 2px 2px 2px;
+   -fx-border-radius: 20px;
+   -fx-background-radius: 20px;
+   -fx-border-style: solid;
+}
+
+.inner_pane{
+   -fx-background-color: #748CF1;
+   -fx-border-width: 2px 2px 2px 2px;
+   -fx-border-radius: 20px;
+   -fx-background-radius: 20px;
+   -fx-border-style: solid;
+   -fx-border-color: #748CF1;
+}
+
+.top_bar{
+    -fx-background-color: #EAEEF4;
+}
+
+.home_button{
+    -fx-background-color: #141313;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-border-color: #141313;
+ }
+
+ .other_button{
+    -fx-background-color: #353A56;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-border-color: #353A56;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 30, 0, 2, 4);
+ }
+
+ .topbar_button{
+    -fx-background-color: #EAEEF4;
+    -fx-border-radius: 50px;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 2, 4);
+ }
+
+.search{
+    -fx-background-color: transparent; /* Ẩn viền mặc định */
+    -fx-border-width: 0 0 2 0;         /* Gạch chân dày 2px */
+    -fx-border-color: #111111;         /* Màu gạch chân */
+    -fx-padding: 5 0 5 0;              /* Cách lề */
+    -fx-font-size: 14px;
+
+}

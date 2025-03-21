@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.LoginController"
+          alignment="center" hgap="10" vgap="10">
+
+    <Label text="Tên đăng nhập:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label text="Mật khẩu:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Button text="Đăng nhập" onAction="#handleLogin" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+</GridPane>

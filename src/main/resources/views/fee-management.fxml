@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.FeeViewController">
+    <TableView fx:id="feeTable">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn"/>
+            <TableColumn text="Tên khoản thu" fx:id="nameColumn"/>
+            <TableColumn text="Loại" fx:id="categoryColumn"/>
+            <TableColumn text="Số tiền" fx:id="amountColumn"/>
+            <TableColumn text="Trạng thái" fx:id="statusColumn"/>
+            <TableColumn text="Trạng thái" fx:id="feeTypeColumn"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Thêm" onAction="#handleAdd"/>
+        <Button text="Sửa" onAction="#handleEdit"/>
+        <Button text="Xóa" onAction="#handleDelete"/>
+    </HBox>
+</VBox>

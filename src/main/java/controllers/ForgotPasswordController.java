@@ -2,8 +2,10 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import services.EmailService;
 import services.ForgotPasswordService;
@@ -15,7 +17,7 @@ import java.util.Optional;
 public class ForgotPasswordController { // Không kế thừa từ UserController nữa
 
     private String verificationCode;
-
+    private User user;
     @FXML private TextField newPasswordField;
     @FXML private TextField cfNewPasswordField;
     @FXML private TextField forgotPasswordUserNameField;
@@ -30,12 +32,14 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
     private final UserService userService;
     private final EmailService emailService;
     private final ForgotPasswordService forgotPasswordService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ForgotPasswordController(UserService userService, EmailService emailService, ForgotPasswordService forgotPasswordService) {
+    public ForgotPasswordController(UserService userService, EmailService emailService, ForgotPasswordService forgotPasswordService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.emailService = emailService;
         this.forgotPasswordService = forgotPasswordService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @FXML
@@ -50,6 +54,12 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
             return;
         }
 
+        if(newPassword.length()<8){
+            forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
+            forgotPasswordStatusLabel.setText("Mật khẩu phải có ít nhất 8 ký tự!");
+            return;
+        }
+
         if (!newPassword.equals(cfNewPassword)) {
             forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
             forgotPasswordStatusLabel.setText("Mật khẩu chưa khớp");
@@ -59,7 +69,7 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
         Optional<String> emailOpt = userService.getEmailByUsername(userName);
         if (emailOpt.isEmpty()) {
             forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
-            forgotPasswordStatusLabel.setText("Tên tài khoản không tồn tại hoặc chưa đăng ký email.");
+            forgotPasswordStatusLabel.setText("Tên tài khoản không tồn tại.");
             return;
         }
 
@@ -69,11 +79,14 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
         try {
             System.out.println("Sending email to: " + email + " with code: " + verificationCode);
             emailService.sendVerificationCode(email, verificationCode);
+            user = userService.setUserByUsername(userName);
+            user.setPasswordHash(passwordEncoder.encode(newPassword));
 
-            // Truyền verificationCode sang ConfirmController
+            //Setup data cho trang Confirm
             confirmController.setVerificationCode(verificationCode);
+            confirmController.setCurAct(2);
+            confirmController.setUser(user);
 
-            // Gọi phương thức showConfirmBox() từ UserController
             userController.showConfirmBox();
         } catch (Exception e) {
             forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
@@ -83,7 +96,6 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
 
     @FXML
     protected void handleLoginClick() {
-        // Gọi phương thức showLoginBox() từ UserController
         userController.showLoginBox();
     }
 }

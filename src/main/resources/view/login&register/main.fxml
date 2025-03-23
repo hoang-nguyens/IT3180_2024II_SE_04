@@ -31,7 +31,7 @@
                         </Text>
 
                         <!-- Include login.fxml -->
-                        <fx:include fx:id="loginBox" source="login.fxml" visible="false" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0" />
+                        <fx:include fx:id="loginBox" source="login.fxml" visible="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0" />
 
                         <!-- Include register.fxml -->
                         <fx:include fx:id="registerBox" source="register.fxml" visible="false" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0" />
@@ -39,7 +39,7 @@
                         <!-- Include forgotpassword.fxml -->
                         <fx:include fx:id="forgotPasswordBox" source="forgotpassword.fxml" visible="false" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0" />
                         <!-- Include confirm.fxml -->
-                        <fx:include fx:id="confirmBox" source="confirm.fxml" visible="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0" />
+                        <fx:include fx:id="confirmBox" source="confirm.fxml" visible="false" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0" />
                     </children>
                 </AnchorPane>
             </left>

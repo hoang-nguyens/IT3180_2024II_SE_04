@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import services.UserService;
 import java.util.Optional;
 
 @Controller
-public class LoginController { // Không kế thừa từ UserController nữa
+public class LoginController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -44,33 +45,32 @@ public class LoginController { // Không kế thừa từ UserController nữa
         }
 
         try {
-            Optional<String> hashedPasswordOpt = userService.getPasswordByUsername(username);
-            if (hashedPasswordOpt.isEmpty()) {
-                loginStatusLabel.setStyle("-fx-text-fill: red;");
-                loginStatusLabel.setText("Tên đăng nhập sai!");
-            } else if (!BCrypt.checkpw(password, hashedPasswordOpt.get())) {
-                loginStatusLabel.setStyle("-fx-text-fill: red;");
-                loginStatusLabel.setText("Mật khẩu sai!");
-            } else {
+            Optional<User> userOpt = userService.loginUser(username, password);
+
+            if (userOpt.isPresent()) {
                 loginStatusLabel.setStyle("-fx-text-fill: green;");
                 loginStatusLabel.setText("Đăng nhập thành công!");
+
                 // Thực hiện chuyển hướng hoặc các hành động tiếp theo sau khi đăng nhập thành công
+                //HERE//
+            } else {
+                loginStatusLabel.setStyle("-fx-text-fill: red;");
+                loginStatusLabel.setText("Tên đăng nhập hoặc mật khẩu sai!");
             }
         } catch (Exception e) {
             loginStatusLabel.setStyle("-fx-text-fill: red;");
             loginStatusLabel.setText("Lỗi khi đăng nhập: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
     protected void handleRegisterClick() {
-        // Gọi phương thức showRegisterBox() từ UserController
         userController.showRegisterBox();
     }
 
     @FXML
     protected void handleForgotPasswordClick() {
-        // Gọi phương thức showForgotPasswordBox() từ UserController
         userController.showForgotPasswordBox();
     }
 }

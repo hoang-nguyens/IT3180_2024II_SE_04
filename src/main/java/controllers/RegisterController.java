@@ -2,8 +2,10 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import services.EmailService;
 import services.ForgotPasswordService;
@@ -12,9 +14,10 @@ import services.UserService;
 import java.util.regex.Pattern;
 
 @Controller
-public class RegisterController { // Không kế thừa từ UserController nữa
+public class RegisterController {
 
     private String verificationCode;
+    private User user = new User();
 
     @FXML private TextField registerEmailField;
     @FXML private TextField registerUsernameField;
@@ -27,16 +30,17 @@ public class RegisterController { // Không kế thừa từ UserController nữ
 
     @Autowired
     private UserController userController; // Inject UserController
-
+    private PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final EmailService emailService;
     private final ForgotPasswordService forgotPasswordService;
 
     @Autowired
-    public RegisterController(UserService userService, EmailService emailService, ForgotPasswordService forgotPasswordService) {
+    public RegisterController(UserService userService, EmailService emailService, ForgotPasswordService forgotPasswordService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.emailService = emailService;
         this.forgotPasswordService = forgotPasswordService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @FXML
@@ -45,6 +49,9 @@ public class RegisterController { // Không kế thừa từ UserController nữ
         String registerUsername = registerUsernameField.getText().trim();
         String registerPassword = registerPasswordField.getText().trim();
         String registerCfPassword = registerPasswordCheckField.getText().trim();
+        user.setEmail(registerEmail);
+        user.setUsername(registerUsername);
+        user.setPasswordHash(passwordEncoder.encode(registerPassword));
 
         if (registerEmail.isEmpty() || registerUsername.isEmpty() || registerPassword.isEmpty() || registerCfPassword.isEmpty()) {
             registerStatusLabel.setStyle("-fx-text-fill: red;");
@@ -64,19 +71,40 @@ public class RegisterController { // Không kế thừa từ UserController nữ
             return;
         }
 
-        verificationCode = emailService.generateVerificationCode();
-        try {
-            emailService.sendVerificationCode(registerEmail, verificationCode);
-
-            // Truyền verificationCode sang ConfirmController
-            confirmController.setVerificationCode(verificationCode);
-
-            // Gọi phương thức showConfirmBox() từ UserController
-            userController.showConfirmBox();
-        } catch (Exception e) {
+        if (registerPassword.length() < 8) {
             registerStatusLabel.setStyle("-fx-text-fill: red;");
-            registerStatusLabel.setText("Lỗi gửi email: " + e.getMessage());
+            registerStatusLabel.setText("Mật khẩu phải có ít nhất 8 ký tự!");
+            return;
         }
+
+        if(userService.checkUserByUsername(registerUsername)){
+            registerStatusLabel.setStyle("-fx-text-fill: red;");
+            registerStatusLabel.setText("Tên tài khoản đã tồn tại!");
+            return;
+        }
+
+        if(userService.checkUserByEmail(registerEmail)){
+            registerStatusLabel.setStyle("-fx-text-fill: red;");
+            registerStatusLabel.setText("Email đã được sử dụng!");
+            return;
+        }
+
+            verificationCode = emailService.generateVerificationCode();
+            registerStatusLabel.setText("Mã xác nhận đã được gửi đi");
+            try {
+                emailService.sendVerificationCode(registerEmail, verificationCode);
+
+                // Truyền verificationCode sang ConfirmController
+                confirmController.setVerificationCode(verificationCode);
+                confirmController.setCurAct(1);
+                confirmController.setUser(user);
+                // Gọi phương thức showConfirmBox() từ UserController
+                userController.showConfirmBox();
+            } catch (Exception e) {
+                registerStatusLabel.setStyle("-fx-text-fill: red;");
+                registerStatusLabel.setText("Lỗi gửi email: " + e.getMessage());
+            }
+
     }
 
     private boolean isValidEmail(String email) {

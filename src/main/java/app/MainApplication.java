@@ -27,7 +27,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login&register/main.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean); // Inject Spring Beans
 

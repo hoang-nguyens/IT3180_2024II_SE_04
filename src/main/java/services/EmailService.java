@@ -30,7 +30,7 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(toEmail);
-        helper.setSubject("Mã xác nhận đổi mật khẩu");
+        helper.setSubject("Mã xác nhận");
         helper.setText("Mã xác nhận của bạn là: " + code);
         mailSender.send(message);
     }

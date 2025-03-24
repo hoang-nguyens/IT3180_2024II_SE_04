@@ -12,16 +12,17 @@ import repositories.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FeeService {
     @Autowired
     private FeeRepository feeRepository;
 
-    //    @Autowired
-//    private FeeCategoryRepository feeCategoryRepository;
-    @Autowired
-    private FeeRepository fee2Repository;
+//    @Autowired
+//    public FeeService(FeeRepository feeRepository) {
+//        this.feeRepository = feeRepository;
+//    }
 
     public Fee createFee(String feeCategory,
                          String feeSubCategory,
@@ -31,9 +32,15 @@ public class FeeService {
                          String description,
                          LocalDate start_date,
                          @Nullable LocalDate end_date) {
-
         Fee fee = new Fee(feeCategory,feeSubCategory, amount, feeUnit, billPeriod, description, start_date, end_date);
-        return fee2Repository.save(fee);
+        validateFee(fee);
+        return feeRepository.save(fee);
+    }
+
+    public Fee createFee(Fee fee){
+        validateFee(fee);
+        System.out.println("Fee created");
+        return feeRepository.save(fee);
     }
 
     public Fee updateFee(Long feeId,
@@ -42,7 +49,7 @@ public class FeeService {
                          BillPeriod billPeriod,
                          String description,
                          LocalDate end_date){
-        Fee fee = fee2Repository.findById(feeId).orElse(null);
+        Fee fee = feeRepository.findById(feeId).orElse(null);
         if (fee==null) {
             throw new EntityNotFoundException("Fee not found with id " + feeId);
         }
@@ -51,23 +58,47 @@ public class FeeService {
         fee.setBillPeriod(billPeriod);
         fee.setDescription(description);
         fee.setEndDate(end_date);
-        return fee2Repository.save(fee);
+        return feeRepository.save(fee);
     }
 
     public void deleteFee(Long feeId) {
-        if (!fee2Repository.existsById(feeId)) {
+        if (!feeRepository.existsById(feeId)) {
             throw new EntityNotFoundException("Fee not found with ID: " + feeId);
         }
-        fee2Repository.deleteById(feeId);
+        feeRepository.deleteById(feeId);
+    }
+
+    public void validateFee(Fee fee) {
+        boolean exists = feeRepository.existsByCategoryAndSubCategoryAndTimeOverlap(
+                fee.getCategory(),fee.getSubCategory(),fee.getStartDate(),fee.getEndDate()
+        );
+        if (exists) {
+            throw new IllegalArgumentException("Khoảng thời gian của khoản phí mới bị giao với khoản phí đã tồn tại");
+        }
     }
 
     public Fee getFeeById(Long feeId) {
-        return fee2Repository.findById(feeId)
+        return feeRepository.findById(feeId)
                 .orElseThrow(() -> new EntityNotFoundException("Fee not found with ID: " + feeId));
     }
 
     public List<Fee> getAllFees() {
-        return fee2Repository.findAll();
+        return feeRepository.findAll();
     }
 
+    public List<Fee> getAllActiveFees() {
+        return feeRepository.findAllActiveFees();
+    }
+
+    public List<Fee> getAllFeesByCategoryAndSubCategory(String category, String subCategory) {
+        return feeRepository.findByCategoryAndSubCategory(category, subCategory);
+    }
+
+    public List<Fee> getAllActiveFeesByCategoryAndSubCategory(String category, String subCategory) {
+        return feeRepository.findByCategoryAndSubCategoryAndIsActive(category, subCategory);
+    }
+
+    public List<Fee> getAllActiveForcedFees(){
+        return feeRepository.findByCategoryNot("Đóng góp");
+    }
 }

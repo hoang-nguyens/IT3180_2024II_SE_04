@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import services.EmailService;
@@ -18,6 +17,7 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
 
     private String verificationCode;
     private User user;
+    private int state = 0;
     @FXML private TextField newPasswordField;
     @FXML private TextField cfNewPasswordField;
     @FXML private TextField forgotPasswordUserNameField;
@@ -72,30 +72,40 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
             forgotPasswordStatusLabel.setText("Tên tài khoản không tồn tại.");
             return;
         }
+        if(state == 0) {
+            String email = emailOpt.get();
+            verificationCode = emailService.generateVerificationCode();
 
-        String email = emailOpt.get();
-        verificationCode = emailService.generateVerificationCode();
-
-        try {
-            System.out.println("Sending email to: " + email + " with code: " + verificationCode);
-            emailService.sendVerificationCode(email, verificationCode);
-            user = userService.setUserByUsername(userName);
-            user.setPasswordHash(passwordEncoder.encode(newPassword));
-
-            //Setup data cho trang Confirm
-            confirmController.setVerificationCode(verificationCode);
-            confirmController.setCurAct(2);
-            confirmController.setUser(user);
-
-            userController.showConfirmBox();
-        } catch (Exception e) {
-            forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
-            forgotPasswordStatusLabel.setText("Lỗi gửi email: " + e.getMessage());
+            try {
+                System.out.println("Sending email to: " + email + " with code: " + verificationCode);
+                emailService.sendVerificationCode(email, verificationCode);
+                forgotPasswordStatusLabel.setStyle("-fx-text-fill: green;");
+                forgotPasswordStatusLabel.setText("Mã xác nhận đã được gửi đi");
+            } catch (Exception e) {
+                forgotPasswordStatusLabel.setStyle("-fx-text-fill: red;");
+                forgotPasswordStatusLabel.setText("Lỗi gửi email: " + e.getMessage());
+            }
         }
+        user = userService.setUserByUsername(userName);
+        user.setPasswordHash(passwordEncoder.encode(newPassword));
+        state++;
+        //Setup data cho trang Confirm
+        confirmController.setVerificationCode(verificationCode);
+        confirmController.setCurAct(2);
+        confirmController.setUser(user);
+        userController.showConfirmBox();
     }
 
+    public void clearForgotPassword(){
+        newPasswordField.clear();
+        cfNewPasswordField.clear();
+        forgotPasswordUserNameField.clear();
+        forgotPasswordStatusLabel.setText("");
+        state = 0;
+    }
     @FXML
     protected void handleLoginClick() {
         userController.showLoginBox();
+        clearForgotPassword();
     }
 }

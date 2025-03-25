@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 //@SpringBootApplication
 public class MainApplication extends Application {
 
-    private static ConfigurableApplicationContext springContext;
+    public static ConfigurableApplicationContext springContext;
 
     @Override
     public void init() {
@@ -38,7 +38,7 @@ public class MainApplication extends Application {
         primaryStage.setTitle("Đăng nhập");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
-        primaryStage.setResizable(false); // Ngăn người dùng chỉnh sửa kích thước
+        primaryStage.setResizable(true); // Ngăn người dùng chỉnh sửa kích thước
         primaryStage.show();
     }
 

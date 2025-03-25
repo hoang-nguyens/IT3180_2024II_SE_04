@@ -31,8 +31,11 @@ import java.util.Optional;
 
 @Controller
 public class FeeViewController {
+
     private final FeeService feeService;
     private final FeeCategoryService feeCategoryService;
+
+
     @Autowired
     public FeeViewController(FeeService feeService, FeeCategoryService feeCategoryService) {
         this.feeService = feeService;

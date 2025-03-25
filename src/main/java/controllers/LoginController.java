@@ -1,9 +1,13 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -12,6 +16,7 @@ import services.EmailService;
 import services.ForgotPasswordService;
 import services.UserService;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -58,6 +63,9 @@ public class LoginController {
             if (userOpt.isPresent()) {
                 setLoginSuccess("Đăng nhập thành công!");
                 // Thực hiện chuyển hướng hoặc các hành động tiếp theo
+
+                openHomePage();
+
             } else {
                 setLoginError("Tên đăng nhập hoặc mật khẩu sai!");
             }
@@ -91,4 +99,22 @@ public class LoginController {
         loginStatusLabel.setText("Lỗi khi đăng nhập: " + e.getMessage());
         System.out.println(e.getMessage());
     }
+
+    private void openHomePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+            Parent root = loader.load();
+
+            // Lấy Stage từ usernameField hoặc bất kỳ thành phần nào
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Trang chủ");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

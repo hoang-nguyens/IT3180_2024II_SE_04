@@ -14,8 +14,8 @@ public class ForgotPasswordService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+//    public Optional<User> getUserByUsername(String username) {
+//        return userRepository.findByUsername(username);
+//    }
 }
 

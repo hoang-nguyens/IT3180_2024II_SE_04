@@ -16,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="711.0" prefWidth="900.0" styleClass="leftside" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane prefHeight="711.0" prefWidth="900.0" styleClass="leftside" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="leftside" stylesheets="@style.css">
             <right>
                 <AnchorPane prefHeight="651.0" prefWidth="432.0" BorderPane.alignment="CENTER">
                     <children>
-                        <ImageView fitHeight="735.0" fitWidth="672.0" layoutX="-176.0" layoutY="-49.0" preserveRatio="true">
+                        <ImageView fitHeight="735.0" fitWidth="672.0" layoutX="-176.0" layoutY="-49.0" opacity="0.3" preserveRatio="true">
                             <image>
                                 <Image url="@images/Pasted-20250315-215425_pixian_ai.png" />
                             </image>
@@ -33,22 +33,22 @@
             <left>
                 <AnchorPane prefHeight="687.0" prefWidth="449.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Text fill="WHITE" layoutX="106.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHUNG CƯ BLUEMOON" textAlignment="CENTER" wrappingWidth="306.0599536895752">
+                        <Text fill="WHITE" layoutX="90.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHUNG CƯ BLUEMOON" textAlignment="CENTER" wrappingWidth="306.0599536895752">
                             <font>
                                 <Font name="System Bold" size="27.0" />
                             </font>
                         </Text>
 
-                        <!-- Khung đăng nhập -->
+                              <!-- Khung đăng nhập -->
                         <VBox fx:id="loginBox" alignment="CENTER" layoutX="118.0" layoutY="120.0" prefHeight="358.0" prefWidth="283.0" spacing="10" styleClass="root" stylesheets="@style.css">
                             <padding>
                                 <Insets bottom="20" left="20" right="20" top="20" />
                             </padding>
 
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Đăng nhập" textFill="#1d588c" />
-                            <TextField fx:id="usernameField" alignment="CENTER" prefHeight="27.0" prefWidth="184.0" promptText="Username" />
-                            <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Password" />
-                            <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="27.0" prefWidth="81.0" text="Login" />
+                                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Đăng nhập" textFill="#1d588c" />
+                            <TextField fx:id="usernameField" alignment="CENTER" prefHeight="27.0" prefWidth="184.0" promptText="Tên đăng nhập" />
+                            <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Mật khẩu" />
+                            <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="41.0" prefWidth="100.0" text="Đăng nhập" />
                             <HBox prefHeight="8.0" prefWidth="180.0">
                                 <children>
                                     <Pane prefHeight="25.0" prefWidth="37.0" />
@@ -57,72 +57,184 @@
                                     <Hyperlink fx:id="registerLink" onAction="#handleRegisterClick" prefHeight="13.0" prefWidth="50.0" text="Đăng kí" />
                                 </children>
                             </HBox>
-                            <Hyperlink prefHeight="0.0" prefWidth="101.0" text="Quên mật khẩu ?" textAlignment="CENTER" />
+                            <Hyperlink onAction="#handleForgotPasswordClick" prefHeight="0.0" prefWidth="101.0" text="Quên mật khẩu ?" textAlignment="CENTER" />
                             <Label fx:id="loginStatusLabel" style="-fx-text-fill: red;" text="" />
                         </VBox>
 
-                        <!-- Khung đăng ký -->
-                        <VBox fx:id="registerBox" alignment="CENTER" layoutX="42.0" layoutY="129.0" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
+                              <!-- Khung đăng ký -->
+                        <VBox fx:id="registerBox" alignment="CENTER" layoutX="41.0" layoutY="120.0" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
                             <padding>
                                 <Insets bottom="20" left="20" right="20" top="20" />
                             </padding>
                             <children>
                                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Đăng ký" textFill="#1d588c" />
-                                <VBox prefHeight="200.0" prefWidth="100.0">
+
+                                      <VBox prefHeight="95.0" prefWidth="354.0">
                                     <children>
                                         <HBox prefHeight="104.0" prefWidth="365.0">
                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="92.0" prefWidth="102.0">
+                                                <VBox alignment="CENTER">
                                                     <children>
-                                                        <Text text="Số căn hộ" wrappingWidth="53.5" />
-                                                        <TextField prefHeight="42.0" prefWidth="78.0" />
-                                                    </children>
-                                                </VBox>
-                                                <Pane prefHeight="61.0" prefWidth="22.0" />
-                                                <VBox alignment="CENTER" prefHeight="59.0" prefWidth="237.0">
-                                                    <children>
-                                                        <Text text="Chủ sở hữu" />
-                                                        <TextField prefHeight="42.0" prefWidth="263.0" />
+                                                        <Text text="Email" />
+                                                        <TextField fx:id="registerEmailField" alignment="CENTER" prefHeight="2.0" prefWidth="355.0" promptText="Email cá nhân" />
                                                     </children>
                                                 </VBox>
                                             </children>
                                         </HBox>
                                     </children>
                                 </VBox>
-                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+
+                                      <VBox alignment="CENTER" prefHeight="65.0" prefWidth="354.0">
                                     <children>
                                         <Text text="Tên đăng nhập" />
-                                        <TextField />
+                                        <TextField fx:id="registerUsernameField" alignment="CENTER" prefHeight="31.0" prefWidth="354.0" promptText="Tên đăng nhập" />
                                     </children>
                                 </VBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
+
+                                      <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="169.0">
+                                        <VBox alignment="CENTER">
                                             <children>
-                                                <Text text="Mật khẩu " />
-                                                <TextField prefHeight="42.0" prefWidth="121.0" />
+                                                <Text text="Mật khẩu" />
+                                                <PasswordField fx:id="registerPasswordField" alignment="CENTER" promptText="Mật khẩu" />
                                             </children>
                                         </VBox>
                                         <Pane prefHeight="59.0" prefWidth="35.0" />
-                                        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="168.0">
+                                        <VBox alignment="CENTER">
                                             <children>
                                                 <Text text="Nhập lại mật khẩu" />
-                                                <TextField />
+                                                <PasswordField fx:id="registerPasswordCheckField" alignment="CENTER" promptText="Nhập lại mật khẩu" />
                                             </children>
                                         </VBox>
                                     </children>
                                 </HBox>
-                                <Button fx:id="registerButton" onAction="#handleLogin" prefHeight="27.0" prefWidth="81.0" text="Đăng ký" />
-                                <HBox prefHeight="8.0" prefWidth="180.0">
+
+                                            <Button fx:id="registerButton" onAction="#handleSwitchToConfirmRegister" prefHeight="41.0" prefWidth="165.0" text="Đăng ký" />
+
+                                      <HBox prefHeight="8.0" prefWidth="180.0">
                                     <children>
                                         <Pane prefHeight="25.0" prefWidth="98.0" />
-                                        <Label prefHeight="29.0" prefWidth="94.0" text="Đã có tài khoản ?" textAlignment="CENTER" textFill="#333f49" />
-                                        <Hyperlink fx:id="loginLink" onAction="#handleLoginClick" text="Đăng nhập" />
+                                        <Label prefHeight="29.0" prefWidth="94.0" text="Đã có tài khoản?" textAlignment="CENTER" textFill="#333f49" />
+                                        <Hyperlink fx:id="loginLink1" onAction="#handleLoginClick" text="Đăng nhập" />
                                     </children>
                                 </HBox>
-                                <Label fx:id="registerStatusLabel" style="-fx-text-fill: red;" text="" />
+                        <Label fx:id="registerStatusLabel" style="-fx-text-fill: red;" text="" />
                             </children>
                         </VBox>
+                  <VBox fx:id="confirmBox" alignment="CENTER" layoutX="46.0" layoutY="120.0" prefHeight="425.0" prefWidth="395.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="345.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Nhập mã xác nhận từ email của bạn" textFill="#1d588c" />
+                        <HBox alignment="CENTER" prefHeight="33.0" prefWidth="354.0">
+                           <children>
+                               <TextField fx:id="mot" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+
+                               <Pane prefHeight="41.0" prefWidth="4.0" />
+                               <TextField fx:id="hai" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+
+                               <Pane prefHeight="41.0" prefWidth="4.0" />
+                               <TextField fx:id="ba" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+
+                               <Pane prefHeight="41.0" prefWidth="4.0" />
+                               <TextField fx:id="bon" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+
+                               <Pane prefHeight="41.0" prefWidth="4.0" />
+                               <TextField fx:id="nam" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+
+                               <Pane prefHeight="41.0" prefWidth="4.0" />
+                               <TextField fx:id="sau" alignment="CENTER" onKeyTyped="#handleKeyTyped" prefHeight="42.0" prefWidth="42.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="0.0" prefWidth="345.0" />
+                        <Button fx:id="confirmregisterButton" onAction="#handleConfirmRegister" prefHeight="41.0" prefWidth="165.0" text="Xác nhận" />
+                        <Label fx:id="cfregisterStatusLabel" style="-fx-text-fill: red;" text="">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
+                        <Button fx:id="backToLoginButton" onAction="#handleLoginClick" prefHeight="41.0" prefWidth="165.0" text="Trở lại Đăng nhập" visible="false" />
+                        <HBox prefHeight="8.0" prefWidth="180.0">
+                           <children>
+                              <Pane prefHeight="25.0" prefWidth="98.0" />
+                              <Label prefHeight="29.0" prefWidth="94.0" text="Đã có tài khoản?" textAlignment="CENTER" textFill="#333f49" />
+                              <Hyperlink fx:id="loginLink2" onAction="#handleLoginClick" text="Đăng nhập" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="forgotPasswordBox" alignment="CENTER" layoutX="41.0" layoutY="120.0" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@style.css" visible="false">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Đổi mật khẩu" textFill="#1d588c" />
+                        <VBox prefHeight="95.0" prefWidth="354.0">
+                           <children>
+                              <HBox prefHeight="104.0" prefWidth="365.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="117.0" prefWidth="355.0">
+                                       <children>
+                                          <Text text="Tên đăng nhập" />
+                                          <TextField fx:id="forgotPasswordUserNameField" alignment="CENTER" prefHeight="5.0" prefWidth="355.0" promptText="Tên đăng nhập" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="95.0" prefWidth="354.0">
+                           <children>
+                              <HBox prefHeight="104.0" prefWidth="365.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="117.0" prefWidth="355.0">
+                                       <children>
+                                          <Text text="Mật khẩu mới" />
+                                          <PasswordField fx:id="newPasswordField" alignment="CENTER" prefHeight="5.0" prefWidth="355.0" promptText="Mật khẩu mới" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="38.0" prefWidth="354.0">
+                           <children>
+                              <Text text="Nhập lại mật khẩu" />
+                              <PasswordField fx:id="cfNewPasswordField" alignment="CENTER" prefHeight="31.0" prefWidth="354.0" promptText="Nhập lại mật khẩu" />
+                           </children>
+                        </VBox>
+                        <Pane prefHeight="11.0" prefWidth="354.0" />
+                        <Button fx:id="forgotPasswordButton" onAction="#handleSwitchToConfirmForgotPassword" prefHeight="41.0" prefWidth="165.0" text="Đổi mật khẩu " />
+                        <HBox prefHeight="8.0" prefWidth="180.0">
+                           <children>
+                              <Pane prefHeight="25.0" prefWidth="98.0" />
+                              <Label prefHeight="29.0" prefWidth="94.0" text="Đã có tài khoản?" textAlignment="CENTER" textFill="#333f49" />
+                              <Hyperlink fx:id="loginLink3" onAction="#handleLoginClick" text="Đăng nhập" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="forgotPasswordStatusLabel" style="-fx-text-fill: red;" text="" />
+                     </children>
+                  </VBox>
                     </children>
                 </AnchorPane>
             </left>

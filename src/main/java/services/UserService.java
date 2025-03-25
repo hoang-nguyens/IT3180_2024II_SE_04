@@ -23,18 +23,34 @@ public class UserService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public User registerUser(String username, String email, String password) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new IllegalArgumentException("Username đã tồn tại!");
+    public boolean checkUserByUsername(String username){
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if(userOpt.isPresent()){
+            return true;
         }
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new IllegalArgumentException("Email đã tồn tại!");
-        }
+        return false;
+    }
 
+    public boolean checkUserByEmail(String email){
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if(userOpt.isPresent()){
+            return true;
+        }
+        return false;
+    }
+    public User setUserByUsername(String username){
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if(userOpt.isPresent()){
+            return userOpt.get();
+        }
+        return new User();
+    }
+
+    public User registerUser(String username, String email, String password_hash) {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPasswordHash(passwordEncoder.encode(password)); // Mã hóa mật khẩu
+        user.setPasswordHash(password_hash);
         user.setRole(Role.USER);
         user.setStatus(Status.ACTIVE);
 
@@ -55,6 +71,11 @@ public class UserService {
         return Optional.empty();
     }
 
+    public void updateUser(User user) {
+        userRepository.save(user);
+
+    }
+
     /**
      * Truy vấn mật khẩu đã băm từ cơ sở dữ liệu bằng tên người dùng.
      * @param username Tên đăng nhập của người dùng.
@@ -69,4 +90,28 @@ public class UserService {
             return Optional.empty(); // Trả về Optional rỗng nếu tài khoản không tồn tại
         }
     }
+
+    public void addUser(String username, String email, String password) {
+        String sql = "INSERT INTO users (username, email, password_hash, role, status, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,username, email, passwordEncoder.encode(password),"user", Status.ACTIVE.name().toLowerCase(), LocalDateTime.now());
+    }
+
+    public void updatePasswordByUsername(String username, String newPassword) {
+            String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+        jdbcTemplate.update(sql, passwordEncoder.encode(newPassword), username);
+    }
+
+
+    public Optional<String> getEmailByUsername(String username) {
+        try {
+            String sql = "SELECT email FROM users WHERE username = ?";
+            String email = jdbcTemplate.queryForObject(sql, new Object[]{username}, String.class);
+            return Optional.ofNullable(email);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+
 }

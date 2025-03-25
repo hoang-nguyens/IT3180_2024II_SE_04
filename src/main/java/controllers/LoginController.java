@@ -1,80 +1,94 @@
 package controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import services.EmailService;
+import services.ForgotPasswordService;
+import services.UserService;
 
 import java.util.Optional;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import services.UserService;
 
 @Controller
 public class LoginController {
+
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label loginStatusLabel;
+
+    @Autowired
+    private UserController userController;
+
     private final UserService userService;
+    private final EmailService emailService;
+    private final ForgotPasswordService forgotPasswordService;
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label loginStatusLabel;
-
-    @FXML private VBox loginBox;
-    @FXML private VBox registerBox;
-    @FXML private Hyperlink registerLink;
-    @FXML private Hyperlink loginLink;
-
-    public LoginController(UserService userService) {
+    @Autowired
+    public LoginController(
+            UserService userService,
+            EmailService emailService,
+            ForgotPasswordService forgotPasswordService
+    ) {
         this.userService = userService;
+        this.emailService = emailService;
+        this.forgotPasswordService = forgotPasswordService;
     }
 
     @FXML
     private void handleLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        if (username.isBlank() || password.isBlank()) {
-            loginStatusLabel.setText("Vui lòng nhập thông tin");
+        if (username.isEmpty() || password.isEmpty()) {
+            setLoginError("Vui lòng nhập thông tin!");
             return;
         }
 
-        Optional<String> hashedPasswordOpt = userService.getPasswordByUsername(username);
-        if (hashedPasswordOpt.isEmpty()) {
-            loginStatusLabel.setText("Tên đăng nhập sai!");
-        } else if (!BCrypt.checkpw(password, hashedPasswordOpt.get())) {
-            loginStatusLabel.setText("Mật khẩu sai!");
-        } else {
-            loginStatusLabel.setText("Đăng nhập thành công!");
+        try {
+            Optional<User> userOpt = userService.loginUser(username, password);
+
+            if (userOpt.isPresent()) {
+                setLoginSuccess("Đăng nhập thành công!");
+                // Thực hiện chuyển hướng hoặc các hành động tiếp theo
+            } else {
+                setLoginError("Tên đăng nhập hoặc mật khẩu sai!");
+            }
+        } catch (Exception e) {
+            handleLoginError(e);
         }
-    }
-
-    private void showLoginBox() {
-        loginBox.setVisible(true);
-        loginBox.setManaged(true);
-        registerBox.setVisible(false);
-        registerBox.setManaged(false);
-    }
-
-    private void showRegisterBox() {
-        registerBox.setVisible(true);
-        registerBox.setManaged(true);
-        loginBox.setVisible(false);
-        loginBox.setManaged(false);
     }
 
     @FXML
     private void handleRegisterClick() {
-        showRegisterBox();
-        System.out.println("Hyperlink clicked - Chuyển sang đăng ký");
+        userController.showRegisterBox();
     }
 
     @FXML
-    private void handleLoginClick(){
-        showLoginBox();
+    private void handleForgotPasswordClick() {
+        userController.showForgotPasswordBox();
     }
 
+    private void setLoginError(String message) {
+        loginStatusLabel.setStyle("-fx-text-fill: red;");
+        loginStatusLabel.setText(message);
+    }
+
+    private void setLoginSuccess(String message) {
+        loginStatusLabel.setStyle("-fx-text-fill: green;");
+        loginStatusLabel.setText(message);
+    }
+
+    private void handleLoginError(Exception e) {
+        loginStatusLabel.setStyle("-fx-text-fill: red;");
+        loginStatusLabel.setText("Lỗi khi đăng nhập: " + e.getMessage());
+        System.out.println(e.getMessage());
+    }
 }

@@ -22,6 +22,7 @@
 
 .top_bar{
     -fx-background-color: #EAEEF4;
+    -fx-alignment: center-right;
 }
 
 .home_button{

@@ -39,7 +39,7 @@ public class MainApplication extends Application {
         primaryStage.setTitle("Đăng nhập");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
-        primaryStage.setResizable(true); // Ngăn người dùng chỉnh sửa kích thước
+        primaryStage.setResizable(false); // Ngăn người dùng chỉnh sửa kích thước
         primaryStage.show();
     }
 

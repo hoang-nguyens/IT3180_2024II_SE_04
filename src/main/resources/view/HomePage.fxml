@@ -96,7 +96,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" fillHeight="false" layoutX="249.0" layoutY="2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="81.0" prefWidth="1041.0">
                      <children>
-                        <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="1094.0" styleClass="top_bar" stylesheets="@css/homepage.css">
+                        <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="54.0" prefWidth="810.0" styleClass="top_bar" stylesheets="@css/homepage.css">
                            <children>
                               <Button alignment="BASELINE_RIGHT" contentDisplay="RIGHT" layoutX="79.0" layoutY="6.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="51.0" styleClass="topbar_button" stylesheets="@css/homepage.css">
                                  <graphic>
@@ -135,7 +135,7 @@
                         </AnchorPane>
                      </children>
                   </HBox>
-                  <StackPane fx:id="contentArea" layoutX="63.0" layoutY="117.0" prefHeight="625.0" prefWidth="1122.0" />
+                  <StackPane fx:id="contentArea" layoutX="63.0" layoutY="117.0" prefHeight="625.0" prefWidth="954.0" />
                </children>
             </Pane>
          </children>

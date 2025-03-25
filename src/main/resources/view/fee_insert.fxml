@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="408.0" prefWidth="831.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
+   <Pane prefHeight="407.0" prefWidth="831.0">
+      <children>
+         <AnchorPane layoutX="402.0" layoutY="14.0">
+            <children>
+            
+                      <!-- Form nhập liệu -->
+                <GridPane hgap="10" prefHeight="370.0" prefWidth="414.0" stylesheets="@css/insert_fee.css" vgap="10">
+                    <children>
+                        <Label text="Loại khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            
+                              <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            
+                              <Label text="Số tiền:" GridPane.rowIndex="2" />
+                        <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            
+                              <Label text="Đơn vị tính:" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="unitComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            
+                              <Label text="Kỳ thanh toán:" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="billPeriodComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            
+                              <Label text="Mô tả:" GridPane.rowIndex="5" />
+                        <TextArea fx:id="descriptionArea" prefHeight="100.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            
+                              <Label text="Ngày bắt đầu:" GridPane.rowIndex="6" />
+                        <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            
+                              <Label text="Ngày kết thúc:" GridPane.rowIndex="7" />
+                        <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    </children>
+                  <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints maxHeight="27.20000610351562" minHeight="25.599999999999994" prefHeight="27.20000610351562" />
+                     <RowConstraints maxHeight="101.60000000000002" minHeight="99.9999938964844" prefHeight="99.9999938964844" />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+                </GridPane>
+            </children>
+         </AnchorPane>
+         <Pane layoutY="-3.0" prefHeight="416.0" prefWidth="366.0">
+            <children>
+            
+                            <!-- Label hiển thị trạng thái -->
+                <Label fx:id="statusLabel" layoutX="163.0" layoutY="244.0" text="Trạng thái" />
+            </children>
+         </Pane>
+      </children>
+   </Pane>
+</VBox>

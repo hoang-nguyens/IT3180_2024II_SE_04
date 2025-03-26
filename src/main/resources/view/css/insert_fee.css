@@ -1,0 +1,204 @@
+#grid_box{
+    -fx-border-color: #fff;
+    -fx-border-width: 3px;
+    -fx-border-radius: 2px;
+    -fx-padding: 32px;
+    -fx-background-color: white;
+        -fx-background-radius: 10;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 30, 0, 2, 4);*/
+}
+
+.root{
+    -fx-background-color: #3A39B6;
+}
+
+.custom-button {
+    -fx-background-color: #2463D2;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+    -fx-border-color: #2463D2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50px;
+
+}
+
+.custom-button:hover {
+    -fx-background-color: #45A049;
+}
+
+.custom-button:pressed {
+    -fx-background-color: #388E3C;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 0 10px 10px 0;
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: #1565C0;
+}
+
+/* Tùy chỉnh ComboBox */
+.custom-combo {
+    -fx-background-color: white;
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+    -fx-font-size: 14px;
+    -fx-padding: 2px 3px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #b0b0b0; /* Viền xám nhạt */
+}
+
+/* Hover */
+.custom-combo:hover {
+    -fx-border-color: #8a8a8a; /* Viền xám đậm hơn khi hover */
+}
+
+/* Khi mở danh sách */
+.custom-combo:showing {
+    -fx-border-color: #7a7a7a; /* Viền tối hơn khi mở */
+}
+
+/* Nút mũi tên */
+.custom-combo .arrow-button {
+    -fx-background-color: transparent; /* Nền trong suốt */
+}
+
+/* Nút mũi tên khi hover */
+.custom-combo .arrow-button:hover {
+    -fx-background-color: #f0f0f0; /* Màu xám rất nhạt */
+}
+
+/* Danh sách thả xuống */
+.custom-combo .list-view {
+    -fx-background-color: white; /* Nền trắng */
+    -fx-border-color: #b0b0b0; /* Viền xám nhạt */
+    -fx-border-radius: 8px;
+}
+
+/* Từng mục trong danh sách */
+.custom-combo .list-cell {
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+    -fx-padding: 5px;
+}
+
+/* Hover trên mục trong danh sách */
+.custom-combo .list-cell:hover {
+    -fx-background-color: #f0f0f0; /* Xám rất nhạt */
+}
+
+/* Mục được chọn */
+.custom-combo .list-cell:selected {
+    -fx-background-color: #e0e0e0; /* Xám nhạt */
+    -fx-text-fill: #333333; /* Xám đậm hơn */
+}
+
+/* Tùy chỉnh DatePicker */
+.custom-date-picker {
+    -fx-background-color: white; /* Nền trắng */
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+    -fx-font-size: 14px;
+    -fx-padding: 2px 3px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #b0b0b0; /* Viền xám nhạt */
+}
+
+/* Hover DatePicker */
+.custom-date-picker:hover {
+    -fx-border-color: #8a8a8a; /* Viền xám đậm hơn khi hover */
+}
+
+/* Khi DatePicker được focus */
+.custom-date-picker:focused {
+    -fx-border-color: #7a7a7a; /* Viền tối hơn khi focus */
+}
+
+/* Nút mở lịch */
+.custom-date-picker .arrow-button {
+    -fx-background-color: transparent; /* Nền trong suốt */
+}
+
+/* Nút mở lịch khi hover */
+.custom-date-picker .arrow-button:hover {
+    -fx-background-color: #C594E8; /* Xám rất nhạt */
+}
+
+/* Tùy chỉnh bảng chọn ngày */
+.date-picker-popup {
+    -fx-background-color: #C594E8; /* Nền bảng chọn trắng */
+    -fx-border-color: #b0b0b0; /* Viền xám nhạt */
+    -fx-border-radius: 8px;
+}
+
+/* Tiêu đề tháng & năm */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #f5f5f5; /* Xám rất nhạt */
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+}
+
+/* Ngày trong lịch */
+.date-picker-popup .day-cell {
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+}
+
+/* Ngày được hover */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #f0f0f0; /* Nền xám nhạt */
+}
+
+/* Ngày hiện tại */
+.date-picker-popup .day-cell:today {
+    -fx-background-color: #e0e0e0; /* Xám nhạt */
+    -fx-text-fill: #333333; /* Xám đậm hơn */
+}
+
+/* Ngày được chọn */
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #d6d6d6; /* Xám đậm hơn */
+    -fx-text-fill: #000000; /* Màu chữ đen */
+}
+
+
+/* Tùy chỉnh TextArea */
+.custom-text-area {
+    -fx-background-color: white; /* Nền trắng */
+    -fx-text-fill: #4a4a4a; /* Màu chữ xám đậm */
+    -fx-font-size: 14px;
+    -fx-padding: 2px;
+    -fx-background-radius: 8px; /* Bo góc */
+    -fx-border-radius: 8px; /* Bo góc viền */
+    -fx-border-color: #b0b0b0; /* Viền xám nhạt */
+}
+
+/* Khi hover TextArea */
+.custom-text-area:hover {
+    -fx-border-color: #8a8a8a; /* Viền xám đậm hơn khi hover */
+}
+
+/* Khi focus vào TextArea */
+.custom-text-area:focused {
+    -fx-border-color: #7a7a7a; /* Viền tối hơn khi focus */
+}
+
+/* Ẩn thanh cuộn ngang */
+.custom-text-area .scroll-pane {
+    -fx-hbar-policy: never; /* Không hiển thị thanh cuộn ngang */
+}
+
+/* Tùy chỉnh thanh cuộn dọc */
+.custom-text-area .scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Nền trong suốt */
+}
+
+/* Thanh trượt của thanh cuộn */
+.custom-text-area .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #dcdcdc; /* Màu xám nhạt */
+    -fx-background-radius: 8px; /* Bo góc */
+}
+
+/* Hover trên thanh trượt */
+.custom-text-area .scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #b0b0b0; /* Xám đậm hơn khi hover */
+}

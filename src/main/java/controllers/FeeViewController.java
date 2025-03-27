@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import models.Fee;
 import models.FeeCategory;
 import models.enums.BillPeriod;
@@ -26,6 +27,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +50,7 @@ public class FeeViewController {
     @FXML
     private TableView<Fee> feeTable;
     @FXML
-    private TableColumn<Fee, Integer> idColumn;
+    private TableColumn<Fee, Long> idColumn;
     @FXML
     private TableColumn<Fee, String> categoryColumn;
     @FXML
@@ -65,7 +67,8 @@ public class FeeViewController {
     private TableColumn<Fee, LocalDate> startDateColumn;
     @FXML
     private TableColumn<Fee, LocalDate> endDateColumn;
-
+    @FXML
+    private TableColumn<Fee, Void> actionColumn;
     //    @FXML
 //    private TextField categoryField;
 //    @FXML
@@ -94,6 +97,10 @@ public class FeeViewController {
     private Button updateButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private Button insertButton;
+    @FXML
+    private Button searchButton;
 
     private ObservableList<Fee> feeList = FXCollections.observableArrayList();
     private ObservableList<String> categoryList = FXCollections.observableArrayList();
@@ -103,6 +110,7 @@ public class FeeViewController {
     public void initialize() {
         // Setup table columns
 //        System.out.println("OK !!!!");
+        idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         categoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
         subCategoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubCategory()));
         amountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
@@ -111,6 +119,36 @@ public class FeeViewController {
         descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
         startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
         endDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDate()));
+
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button editButton = new Button("✏️");
+            private final Button deleteButton = new Button("❌");
+            private final HBox pane = new HBox(editButton, deleteButton);
+
+            {
+                editButton.setOnAction(event -> {
+                    Fee fee = getTableView().getItems().get(getIndex());
+                    handleEdit();
+                });
+
+                deleteButton.setOnAction(event -> {
+                    Fee fee = getTableView().getItems().get(getIndex());
+                    handleDelete();
+                });
+
+                pane.setSpacing(5);
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(pane);
+                }
+            }
+        });
 
         // Load fee data
         loadFees();
@@ -142,6 +180,8 @@ public class FeeViewController {
                 populateForm(newSelection);
             }
         });
+
+
     }
 
     private void loadFees() {
@@ -210,6 +250,17 @@ public class FeeViewController {
             subCategoryComboBox.setItems(FXCollections.observableArrayList(subCategoryList));
             subCategoryComboBox.setValue(newSubCategory);
         }
+    }
+
+    @FXML
+    private void handleInsert(){
+        // chuyến stage ở đây
+        System.out.println("switching !!!");
+    }
+
+    @FXML
+    private void handleSearch(){
+        System.out.println("searching !!!");
     }
 
     @FXML
@@ -286,10 +337,48 @@ public class FeeViewController {
         }
 
         try {
+            String selectedCategory = categoryComboBox.getValue();
+            String selectedSubCategory = subCategoryComboBox.getValue();
+
+//            Fee savedFee = feeService.createFee(
+//                    selectedCategory, selectedSubCategory, new BigDecimal(amountField.getText()),
+//                    unitComboBox.getValue(), billPeriodComboBox.getValue(), descriptionArea.getText(),
+//                    startDatePicker.getValue(), endDatePicker.getValue());
+            selectedFee.setCategory(selectedCategory);
+            selectedFee.setSubCategory(selectedSubCategory);
+
+            String amountText = amountField.getText();
+            BigDecimal amount = null;
+            if (!selectedCategory.equals("Đóng Góp")) {
+                if (amountText == null || amountText.trim().isEmpty()) {
+                    statusLabel.setText("Vui lòng nhập số tiền!");
+                    return;
+                }
+                amount = new BigDecimal(amountText);
+            } else if (amountText != null && !amountText.trim().isEmpty()) {
+                amount = new BigDecimal(amountText);
+            }
+            selectedFee.setAmount(amount);
+
+            selectedFee.setUnit(unitComboBox.getValue());
+            selectedFee.setBillPeriod(billPeriodComboBox.getValue());
+            selectedFee.setDescription(descriptionArea.getText());
+            selectedFee.setStartDate(startDatePicker.getValue());
+            selectedFee.setEndDate(endDatePicker.getValue());
             Fee updatedFee = feeService.updateFee(selectedFee.getId(), new BigDecimal(amountField.getText()),
                     unitComboBox.getValue(), billPeriodComboBox.getValue(),
                     descriptionArea.getText(), endDatePicker.getValue());
 
+            // Lấy danh sách hiện tại của TableView
+            ObservableList<Fee> feeList = feeTable.getItems();
+
+            // Tìm phần tử cần cập nhật
+            for (int i = 0; i < feeList.size(); i++) {
+                if (feeList.get(i).getId().equals(updatedFee.getId())) {
+                    feeList.set(i, updatedFee); // Cập nhật phần tử
+                    break;
+                }
+            }
             feeTable.refresh();
             statusLabel.setText("Cập nhật khoản thu thành công!");
         } catch (Exception e) {

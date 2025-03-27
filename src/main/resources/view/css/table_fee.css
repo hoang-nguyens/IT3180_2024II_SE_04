@@ -1,0 +1,79 @@
+.root {
+    -fx-background-color: #ffffff;
+}
+
+/* Màu nền cho tiêu đề cột */
+.table-view .column-header {
+    -fx-border-color: transparent;  /* Xóa viền */
+    -fx-background-color: #EDF3F8;  /* Màu nền xám nhẹ */
+}
+
+/* Xóa viền giữa các tiêu đề cột */
+.table-view .column-header-background {
+    -fx-border-color: transparent;
+    -fx-background-color: #EDF3F8;
+}
+
+/* Xóa viền giữa các cột */
+.table-view .column-header .label {
+    -fx-border-color: transparent;
+}
+
+/* Xóa đường viền bên phải giữa các cột */
+.table-view .column-header .nested-column-header {
+    -fx-border-color: transparent;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;  /* Loại bỏ màu nền */
+    -fx-border-color: transparent;  /* Ẩn viền */
+    -fx-padding: 0;
+    -fx-max-width: 0px;
+}
+
+
+/* Xóa đường viền giữa các cột */
+.table-view .table-row-cell .table-cell {
+    -fx-border-color: transparent; /* Xóa viền giữa các cột */
+}
+
+/* Giữ đường viền giữa các hàng */
+.table-view .table-row-cell {
+    -fx-border-color: #E0E0E0; /* Màu viền giữa các hàng */
+    -fx-border-width: 0 0 1px 0; /* Chỉ có viền dưới mỗi hàng */
+}
+
+
+.combo-box {
+    -fx-background-color: #ffffff; /* Màu nền trắng */
+    -fx-border-color: #d1d1d1; /* Màu viền xám nhẹ */
+    -fx-border-radius: 5px; /* Bo góc nhẹ */
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #f5f8fe; /* Màu nền của nút mũi tên */
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #fffff; /* Màu nền của danh sách */
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #eaedf1; /* Màu xanh nhạt khi hover */
+    -fx-text-fill: #000000; /* Màu chữ đen */
+}
+
+
+.button {
+    -fx-background-color: #ffffff; /* Màu nền trắng */
+    -fx-border-color: #d1d1d1; /* Màu viền xám nhẹ */
+    -fx-border-radius: 5px; /* Bo góc nhẹ */
+}
+
+.button:hover {
+    -fx-background-color: #f0f0f0; /* Màu khi hover */
+}
+
+.new_button {
+    -fx-background-color: #308135;
+}

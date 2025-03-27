@@ -49,13 +49,18 @@ public class FeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Fee> updateFee(@PathVariable Long id,
-                                         @RequestParam BigDecimal amount,
-                                         @RequestParam FeeUnit unit,
-                                         @RequestParam BillPeriod billPeriod,
-                                         @RequestParam String description,
-                                         @RequestParam LocalDate endDate) {
-        return ResponseEntity.ok(feeService.updateFee(id, amount, unit, billPeriod, description, endDate));
+    public ResponseEntity<String> updateFee(@PathVariable Long id,
+                                            @RequestParam BigDecimal amount,
+                                            @RequestParam FeeUnit unit,
+                                            @RequestParam BillPeriod billPeriod,
+                                            @RequestParam String description,
+                                            @RequestParam LocalDate endDate) {
+        try {
+            return ResponseEntity.ok("oke");
+//            return ResponseEntity.ok(feeService.updateFee(id, amount, unit, billPeriod, description, endDate));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

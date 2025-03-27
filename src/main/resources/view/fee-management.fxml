@@ -15,8 +15,26 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
+    <!-- Hàng 1: Nút Thêm Mới -->
+    <HBox alignment="CENTER_LEFT" spacing="10" stylesheets="@css/table_fee.css">
+        <Button fx:id="insertButton" onAction="#handleInsert" text="Thêm mới" />
+    </HBox>
+
+    <!-- Hàng 2: Form lọc dữ liệu -->
+    <HBox alignment="CENTER" spacing="10" stylesheets="@css/table_fee.css">
+        <Label text="Lọc theo loại khoản thu:" />
+        <ComboBox fx:id="categoryComboBox" />
+
+        <Label text="Nhóm khoản thu:" />
+        <ComboBox fx:id="subCategoryComboBox" />
+
+        <!--        <Label text="Trạng thái:" />-->
+        <!--        <ComboBox fx:id="filterStatusComboBox" />-->
+
+        <Button fx:id="searchButton" onAction="#handleSearch" text="Tìm kiếm" />
+    </HBox>
     <!-- TableView hiển thị danh sách Fee -->
-    <TableView fx:id="feeTable">
+    <TableView fx:id="feeTable" prefWidth="778.0" stylesheets="@css/table_fee.css">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="categoryColumn" text="Loại khoản thu" />
@@ -26,18 +44,19 @@
             <TableColumn fx:id="billPeriodColumn" text="Kỳ thanh toán" />
             <TableColumn fx:id="descriptionColumn" text="Mô tả" />
             <TableColumn fx:id="startDateColumn" text="Ngày bắt đầu" />
-            <TableColumn fx:id="endDateColumn" text="Ngày kết thúc" /> <!-- Sửa tiêu đề để phù hợp -->
+            <TableColumn fx:id="endDateColumn" text="Ngày kết thúc" />
+            <TableColumn fx:id="actionColumn" text="Thao tác" /> <!-- Sửa tiêu đề để phù hợp -->
         </columns>
     </TableView>
 
-    <!-- Form nhập liệu -->
+    <!--     Form nhập liệu-->
     <GridPane hgap="10" vgap="10">
         <children>
-            <Label text="Loại khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <!--            <Label text="Loại khoản thu :" GridPane.columnIndex="0" GridPane.rowIndex="0" />-->
+            <!--            <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
 
-            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <!--            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />-->
+            <!--            <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
 
             <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -57,20 +76,20 @@
             <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
             <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         </children>
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
 
 

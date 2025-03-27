@@ -27,9 +27,9 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login&register/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login&register/main.fxml"));
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/fee-management.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean); // Inject Spring Beans
 
@@ -39,7 +39,7 @@ public class MainApplication extends Application {
         primaryStage.setTitle("Đăng nhập");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
-        primaryStage.setResizable(true); // Ngăn người dùng chỉnh sửa kích thước
+        primaryStage.setResizable(false); // Ngăn người dùng chỉnh sửa kích thước
         primaryStage.show();
     }
 

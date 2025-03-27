@@ -16,75 +16,76 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="415.0" prefWidth="873.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
-   <Pane prefHeight="443.0" prefWidth="874.0" stylesheets="@css/insert_fee.css">
-      <children>
-         <Pane id="grid_box" layoutX="410.0" layoutY="18.0" prefHeight="380.0" prefWidth="450.0" styleClass="root" stylesheets="@css/insert_fee.css">
-            <children>
-            
-                      <!-- Form nhập liệu -->
-                <GridPane hgap="10" layoutX="14.0" layoutY="-13.0" prefHeight="390.0" prefWidth="420.0" style="-fx-padding: 24px 0;" vgap="10">
-                    <children>
-                        <Label text="Loại khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <ComboBox fx:id="categoryComboBox" editable="true" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            
-                              <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="subCategoryComboBox" editable="true" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            
-                              <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <TextField fx:id="amountField" styleClass="custom-text-area" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            
-                              <Label text="Đơn vị tính:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="unitComboBox" editable="true" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            
-                              <Label text="Kỳ thanh toán:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="billPeriodComboBox" editable="true" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            
-                              <Label text="Mô tả:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                        <TextArea fx:id="descriptionArea" prefHeight="18.0" prefWidth="314.0" styleClass="custom-text-area" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            
-                              <Label text="Ngày bắt đầu:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                        <DatePicker fx:id="startDatePicker" styleClass="custom-date-picker" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            
-                              <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                        <DatePicker fx:id="endDatePicker" prefHeight="18.0" prefWidth="212.0" styleClass="custom-date-picker" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    </children>
-                  <columnConstraints>
-                     <ColumnConstraints />
-                     <ColumnConstraints />
-                  </columnConstraints>
-                  <rowConstraints>
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                  </rowConstraints>
-                  <cursor>
-                     <Cursor fx:constant="DEFAULT" />
-                  </cursor>
-                </GridPane>
-            </children>
-            <effect>
-               <DropShadow blurType="GAUSSIAN" height="9.0" radius="4.0" spread="0.37" width="9.0" />
-            </effect>
-         </Pane>
-         <Pane layoutX="-1.0" layoutY="2.0" prefHeight="403.0" prefWidth="368.0">
-            <children>
-            
-                <!-- Label hiển thị trạng thái -->
-                <Label fx:id="statusLabel" layoutX="157.0" layoutY="322.0" prefHeight="17.0" prefWidth="93.0" />
-               <Button fx:id="addButton" layoutX="162.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="82.0" style="-fx-border-radius: 300;" styleClass="custom-button" stylesheets="@css/insert_fee.css" text="Submit" />
-               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="129.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@images/HomePage/icons8-apartment-100.png" />
-                  </image>
-               </ImageView>
-            </children>
-         </Pane>
-      </children>
-   </Pane>
+<VBox alignment="CENTER" prefHeight="415.0" prefWidth="873.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeInsertController">
+    <Pane prefHeight="443.0" prefWidth="874.0" stylesheets="@css/insert_fee.css">
+        <children>
+            <Pane id="grid_box" layoutX="410.0" layoutY="18.0" prefHeight="380.0" prefWidth="450.0" styleClass="root" stylesheets="@css/insert_fee.css">
+                <children>
+
+                    <!-- Form nhập liệu -->
+                    <GridPane hgap="10" layoutX="14.0" layoutY="-13.0" prefHeight="390.0" prefWidth="420.0" style="-fx-padding: 24px 0;" vgap="10">
+                        <children>
+                            <Label text="Loại khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <ComboBox fx:id="categoryComboBox" editable="true" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="subCategoryComboBox" editable="true" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                            <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <TextField fx:id="amountField" styleClass="custom-text-area" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                            <Label text="Đơn vị tính:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="unitComboBox" editable="false" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                            <Label text="Kỳ thanh toán:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <ComboBox fx:id="billPeriodComboBox" editable="false" prefHeight="36.0" prefWidth="210.0" styleClass="custom-combo" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                            <Label text="Mô tả:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <TextArea fx:id="descriptionArea" prefHeight="18.0" prefWidth="314.0" styleClass="custom-text-area" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                            <Label text="Ngày bắt đầu:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <DatePicker fx:id="startDatePicker" styleClass="custom-date-picker" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                            <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <DatePicker fx:id="endDatePicker" prefHeight="18.0" prefWidth="212.0" styleClass="custom-date-picker" stylesheets="@css/insert_fee.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        </children>
+                        <columnConstraints>
+                            <ColumnConstraints />
+                            <ColumnConstraints />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                        </rowConstraints>
+                        <cursor>
+                            <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                    </GridPane>
+                </children>
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" height="9.0" radius="4.0" spread="0.37" width="9.0" />
+                </effect>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="2.0" prefHeight="403.0" prefWidth="398.0">
+                <children>
+
+                    <!-- Label hiển thị trạng thái -->
+                    <Label fx:id="statusLabel" layoutX="153.0" layoutY="348.0" prefHeight="17.0" prefWidth="93.0" />
+                    <Button fx:id="saveButton" layoutX="145.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="33.0" prefWidth="109.0" style="-fx-border-radius: 300;" styleClass="submit-button" stylesheets="@css/insert_fee.css" text="Submit" />
+                    <Button fx:id="cancelButton" layoutX="162.0" layoutY="287.0" onAction="#handleCancel" styleClass="cancel-button" stylesheets="@css/insert_fee.css" text="Cancel" />
+                    <ImageView fitHeight="186.0" fitWidth="212.0" layoutX="107.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/HomePage/icons8-apartment-100.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </Pane>
+        </children>
+    </Pane>
 </VBox>

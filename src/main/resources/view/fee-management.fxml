@@ -2,22 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
     <!-- Hàng 1: Nút Thêm Mới -->
     <HBox alignment="CENTER_LEFT" spacing="10" stylesheets="@css/table_fee.css">
-        <Button fx:id="insertButton" onAction="#handleInsert" text="Thêm mới" />
+        <Button fx:id="addButton" onAction="#handleAdd" styleClass="new_button" stylesheets="@css/table_fee.css" text="Thêm mới" textFill="WHITE" />
     </HBox>
 
     <!-- Hàng 2: Form lọc dữ liệu -->
@@ -32,9 +26,10 @@
         <!--        <ComboBox fx:id="filterStatusComboBox" />-->
 
         <Button fx:id="searchButton" onAction="#handleSearch" text="Tìm kiếm" />
+        <Button fx:id="resetButton" onAction="#handleReset" text="Xem tất cả" />
     </HBox>
     <!-- TableView hiển thị danh sách Fee -->
-    <TableView fx:id="feeTable" prefWidth="778.0" stylesheets="@css/table_fee.css">
+    <TableView fx:id="feeTable" stylesheets="@css/table_fee.css">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="categoryColumn" text="Loại khoản thu" />
@@ -50,55 +45,55 @@
     </TableView>
 
     <!--     Form nhập liệu-->
-    <GridPane hgap="10" vgap="10">
-        <children>
-            <!--            <Label text="Loại khoản thu :" GridPane.columnIndex="0" GridPane.rowIndex="0" />-->
-            <!--            <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
+    <!--    <GridPane hgap="10" vgap="10">-->
+    <!--        <children>-->
+    <!--&lt;!&ndash;            <Label text="Loại khoản thu :" GridPane.columnIndex="0" GridPane.rowIndex="0" />&ndash;&gt;-->
+    <!--&lt;!&ndash;            <ComboBox fx:id="categoryComboBox" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />&ndash;&gt;-->
 
-            <!--            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />-->
-            <!--            <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
+    <!--&lt;!&ndash;            <Label text="Nhóm khoản thu:" GridPane.columnIndex="0" GridPane.rowIndex="1" />&ndash;&gt;-->
+    <!--&lt;!&ndash;            <ComboBox fx:id="subCategoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />&ndash;&gt;-->
 
-            <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <!--            <Label text="Số tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />-->
+    <!--            <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />-->
 
-            <Label text="Đơn vị tính:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <ComboBox fx:id="unitComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <!--            <Label text="Đơn vị tính:" GridPane.columnIndex="0" GridPane.rowIndex="3" />-->
+    <!--            <ComboBox fx:id="unitComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />-->
 
-            <Label text="Kỳ thanh toán:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <ComboBox fx:id="billPeriodComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <!--            <Label text="Kỳ thanh toán:" GridPane.columnIndex="0" GridPane.rowIndex="4" />-->
+    <!--            <ComboBox fx:id="billPeriodComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />-->
 
-            <Label text="Mô tả:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    <!--            <Label text="Mô tả:" GridPane.columnIndex="0" GridPane.rowIndex="5" />-->
+    <!--            <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />-->
 
-            <Label text="Ngày bắt đầu:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <!--            <Label text="Ngày bắt đầu:" GridPane.columnIndex="0" GridPane.rowIndex="6" />-->
+    <!--            <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />-->
 
-            <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-            <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        </children>
-        <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints>
-    </GridPane>
+    <!--            <Label text="Ngày kết thúc:" GridPane.columnIndex="0" GridPane.rowIndex="7" />-->
+    <!--            <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />-->
+    <!--        </children>-->
+    <!--      <columnConstraints>-->
+    <!--         <ColumnConstraints />-->
+    <!--         <ColumnConstraints />-->
+    <!--      </columnConstraints>-->
+    <!--      <rowConstraints>-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--         <RowConstraints />-->
+    <!--      </rowConstraints>-->
+    <!--    </GridPane>-->
 
 
     <!-- Các nút điều khiển -->
-    <HBox alignment="CENTER" spacing="10">
-        <Button fx:id="addButton" onAction="#handleAdd" text="Thêm" />
-        <Button fx:id="updateButton" onAction="#handleEdit" text="Sửa" />
-        <Button fx:id="deleteButton" onAction="#handleDelete" text="Xóa" />
-    </HBox>
+    <!--    <HBox alignment="CENTER" spacing="10">-->
+    <!--        <Button fx:id="addButton" onAction="#handleAdd" text="Thêm" />-->
+    <!--        <Button fx:id="updateButton" onAction="#handleEdit" text="Sửa" />-->
+    <!--        <Button fx:id="deleteButton" onAction="#handleDelete" text="Xóa" />-->
+    <!--    </HBox>-->
 
     <!-- Label hiển thị trạng thái -->
     <Label fx:id="statusLabel" text="Trạng thái" />

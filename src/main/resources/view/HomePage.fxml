@@ -135,7 +135,7 @@
                         </AnchorPane>
                      </children>
                   </HBox>
-                  <StackPane fx:id="contentArea" layoutX="63.0" layoutY="117.0" prefHeight="625.0" prefWidth="954.0" />
+                  <StackPane fx:id="contentArea" layoutX="65.0" layoutY="77.0" prefHeight="454.0" prefWidth="954.0" />
                </children>
             </Pane>
          </children>

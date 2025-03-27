@@ -202,3 +202,37 @@
 .custom-text-area .scroll-pane .scroll-bar:vertical .thumb:hover {
     -fx-background-color: #b0b0b0; /* Xám đậm hơn khi hover */
 }
+
+.cancel-button {
+    -fx-padding: 5px 15px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d32f2f; /* Màu chữ đỏ */
+    -fx-background-color: #ffebee; /* Màu nền nhạt */
+    -fx-border-color: #ef9a9a; /* Viền đỏ nhạt */
+    -fx-border-radius: 15px; /* Bo góc */
+    -fx-background-radius: 15px; /* Bo góc nền */
+}
+
+/* Hiệu ứng hover */
+.cancel-button:hover {
+    -fx-background-color: #ffcdd2;
+    -fx-cursor: hand;
+}
+
+.submit-button {
+    -fx-padding: 5px 15px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2; /* Màu chữ xanh */
+    -fx-background-color: #e3f2fd; /* Màu nền xanh nhạt */
+    -fx-border-color: #90caf9; /* Viền xanh nhạt */
+    -fx-border-radius: 15px; /* Bo góc */
+    -fx-background-radius: 15px; /* Bo góc nền */
+}
+
+/* Hiệu ứng hover */
+.submit-button:hover {
+    -fx-background-color: #bbdefb;
+    -fx-cursor: hand;
+}

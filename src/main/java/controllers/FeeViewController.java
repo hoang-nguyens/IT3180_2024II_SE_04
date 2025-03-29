@@ -233,7 +233,7 @@ public class FeeViewController {
 
     private void openFeeStage(Fee fee){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/fee_insert.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/fee/fee_insert.fxml"));
             fxmlLoader.setControllerFactory(MainApplication.springContext::getBean);
             Scene feeScene = new Scene(fxmlLoader.load(), 875, 415);
             Stage feeInsertStage = new Stage();

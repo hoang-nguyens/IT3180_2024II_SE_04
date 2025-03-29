@@ -13,8 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import services.EmailService;
 import services.ForgotPasswordService;
@@ -118,7 +116,7 @@ public class LoginController {
 
     private void openHomePage(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/homepage/HomePage.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root, 1250, 800); // Chỉnh lại kích thước cho đúng với FXML
 

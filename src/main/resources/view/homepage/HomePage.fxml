@@ -15,9 +15,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@css/homepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@../css/homepage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
-      <VBox fx:id="side_ankerpane" prefHeight="550.0" prefWidth="210.0" styleClass="side_ankerpane" stylesheets="@css/homepage.css">
+      <VBox fx:id="side_ankerpane" prefHeight="550.0" prefWidth="210.0" styleClass="side_ankerpane" stylesheets="@../css/homepage.css">
          <children>
             <AnchorPane prefHeight="792.0" prefWidth="203.0">
                <children>
@@ -25,7 +25,7 @@
                      <children>
                         <ImageView fitHeight="58.0" fitWidth="72.0" layoutX="64.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/dashboard.png" />
+                              <Image url="@../images/HomePage/dashboard.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -34,61 +34,61 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/home_pixian_ai.png" />
+                              <Image url="@../images/HomePage/home_pixian_ai.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <font>
                         <Font name="Arial Bold" size="12.0" />
                      </font></Button>
-                  <Button fx:id="residentButton" layoutX="17.0" layoutY="172.0" mnemonicParsing="false" onAction="#onManageResident" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@css/homepage.css" text="Resident" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="residentButton" layoutX="17.0" layoutY="172.0" mnemonicParsing="false" onAction="#onManageResident" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Resident" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/icons8-management-50.png" />
+                              <Image url="@../images/HomePage/icons8-management-50.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="feeButton" layoutX="17.0" layoutY="226.0" mnemonicParsing="false" onAction="#onManageFees" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@css/homepage.css" text="Fee" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="feeButton" layoutX="17.0" layoutY="226.0" mnemonicParsing="false" onAction="#onManageFees" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Fee" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/icons8-dollar-bag-50.png" />
+                              <Image url="@../images/HomePage/icons8-dollar-bag-50.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="billButton" layoutX="17.0" layoutY="280.0" mnemonicParsing="false" onAction="#onManageBill" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@css/homepage.css" text="Bill" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="billButton" layoutX="17.0" layoutY="280.0" mnemonicParsing="false" onAction="#onManageBill" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Bill" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/icons8-bill-64.png" />
+                              <Image url="@../images/HomePage/icons8-bill-64.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="reportButton" layoutX="17.0" layoutY="332.0" mnemonicParsing="false" onAction="#onManageReport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@css/homepage.css" text="Report" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="reportButton" layoutX="17.0" layoutY="332.0" mnemonicParsing="false" onAction="#onManageReport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Report" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/icons8-log-50.png" />
+                              <Image url="@../images/HomePage/icons8-log-50.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="supportButton" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#onManageSupport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@css/homepage.css" text="Support" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="supportButton" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#onManageSupport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Support" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/HomePage/icons8-support-50.png" />
+                              <Image url="@../images/HomePage/icons8-support-50.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                   <ImageView fitHeight="98.0" fitWidth="90.0" layoutX="58.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/HomePage/icons8-moon-64.png" />
+                        <Image url="@../images/HomePage/icons8-moon-64.png" />
                      </image>
                   </ImageView>
                </children>
@@ -96,18 +96,18 @@
          </children></VBox>
       <Pane prefHeight="800.0" prefWidth="1075.0">
          <children>
-            <Pane prefHeight="806.0" prefWidth="1079.0" styleClass="top_bar" stylesheets="@css/homepage.css">
+            <Pane prefHeight="806.0" prefWidth="1079.0" styleClass="top_bar" stylesheets="@../css/homepage.css">
                <children>
                   <Line endX="1040.5919189453125" endY="69.58399963378906" startX="36.0479850769043" startY="69.58399963378906" />
-                  <HBox alignment="CENTER_RIGHT" fillHeight="false" layoutX="122.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="81.0" prefWidth="937.0" stylesheets="@style.css">
+                  <HBox alignment="CENTER_RIGHT" fillHeight="false" layoutX="122.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="81.0" prefWidth="937.0" stylesheets="@../css/style.css">
                      <children>
-                        <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="1010.0" styleClass="top_bar" stylesheets="@css/homepage.css">
+                        <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="1010.0" styleClass="top_bar" stylesheets="@../css/homepage.css">
                            <children>
-                              <Button fx:id="accountButton" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" layoutX="40.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleOpenMenu" prefHeight="45.0" prefWidth="45.0" styleClass="topbar_button" stylesheets="@css/homepage.css">
+                              <Button fx:id="accountButton" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" layoutX="40.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleOpenMenu" prefHeight="45.0" prefWidth="45.0" styleClass="topbar_button" stylesheets="@../css/homepage.css">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/HomePage/icons8-account-50.png" />
+                                          <Image url="@../images/HomePage/icons8-account-50.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -126,21 +126,21 @@
                                  </contextMenu>
                               </Button>
 
-                              <Button alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="topbar_button" stylesheets="@css/homepage.css" textAlignment="RIGHT">
+                              <Button alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="topbar_button" stylesheets="@../css/homepage.css" textAlignment="RIGHT">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/HomePage/icons8-notification-50.png" />
+                                          <Image url="@../images/HomePage/icons8-notification-50.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
                               <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="396.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/HomePage/icons8-search-64.png" />
+                                    <Image url="@../images/HomePage/icons8-search-64.png" />
                                  </image>
                               </ImageView>
-                              <TextField alignment="TOP_LEFT" layoutX="183.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="190.0" promptText="Search:" styleClass="search" stylesheets="@css/homepage.css" />
+                              <TextField alignment="TOP_LEFT" layoutX="183.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="190.0" promptText="Search:" styleClass="search" stylesheets="@../css/homepage.css" />
                            </children>
                         </AnchorPane>
                      </children>

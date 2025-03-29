@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="confirmBox" alignment="TOP_CENTER" prefHeight="425.0" prefWidth="395.0" spacing="10" styleClass="root" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConfirmController">
+<VBox fx:id="confirmBox" alignment="TOP_CENTER" prefHeight="425.0" prefWidth="395.0" spacing="10" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConfirmController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>

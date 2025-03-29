@@ -10,12 +10,12 @@
 
 <VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
     <!-- Hàng 1: Nút Thêm Mới -->
-    <HBox alignment="CENTER_LEFT" spacing="10" stylesheets="@css/table_fee.css">
-        <Button fx:id="addButton" onAction="#handleAdd" styleClass="new_button" stylesheets="@css/table_fee.css" text="Thêm mới" textFill="WHITE" />
+    <HBox alignment="CENTER_LEFT" spacing="10" stylesheets="@../css/table_fee.css">
+        <Button fx:id="addButton" onAction="#handleAdd" styleClass="new_button" stylesheets="@../css/table_fee.css" text="Thêm mới" textFill="WHITE" />
     </HBox>
 
     <!-- Hàng 2: Form lọc dữ liệu -->
-    <HBox alignment="CENTER" spacing="10" stylesheets="@css/table_fee.css">
+    <HBox alignment="CENTER" spacing="10" stylesheets="@../css/table_fee.css">
         <Label text="Lọc theo loại khoản thu:" />
         <ComboBox fx:id="categoryComboBox" />
 
@@ -29,7 +29,7 @@
         <Button fx:id="resetButton" onAction="#handleReset" text="Xem tất cả" />
     </HBox>
     <!-- TableView hiển thị danh sách Fee -->
-    <TableView fx:id="feeTable" stylesheets="@css/table_fee.css">
+    <TableView fx:id="feeTable" stylesheets="@../css/table_fee.css">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="categoryColumn" text="Loại khoản thu" />

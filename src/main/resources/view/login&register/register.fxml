@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.layout.Pane?>
-<VBox fx:id="registerBox" alignment="CENTER" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
+<VBox fx:id="registerBox" alignment="CENTER" prefHeight="425.0" prefWidth="404.0" spacing="10" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>

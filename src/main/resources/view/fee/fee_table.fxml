@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="512.0" prefWidth="793.0" spacing="10" stylesheets="@css/table_fee.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
+<VBox alignment="CENTER" prefHeight="512.0" prefWidth="793.0" spacing="10" stylesheets="@../css/table_fee.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
     <!-- Hàng 1: Nút Thêm Mới -->
     <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="794.0" spacing="10">
-        <Button fx:id="insertButton" onAction="#handleInsert" styleClass="new_button" stylesheets="@css/table_fee.css" text="Thêm mới" textFill="#f7f3f3" />
+        <Button fx:id="insertButton" onAction="#handleInsert" styleClass="new_button" stylesheets="@../css/table_fee.css" text="Thêm mới" textFill="#f7f3f3" />
     </HBox>
 
     <!-- Hàng 2: Form lọc dữ liệu -->
@@ -32,7 +32,7 @@
          <graphic>
             <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/HomePage/icons8-search-64.png" />
+                  <Image url="@../images/HomePage/icons8-search-64.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -40,7 +40,7 @@
    <Pane prefHeight="400.0" prefWidth="798.0">
       <children>
           <!-- TableView hiển thị danh sách Fee -->
-          <TableView fx:id="feeTable" prefHeight="400.0" prefWidth="792.0" styleClass="column-header" stylesheets="@css/table_fee.css">
+          <TableView fx:id="feeTable" prefHeight="400.0" prefWidth="792.0" styleClass="column-header" stylesheets="@../css/table_fee.css">
               <columns>
                   <TableColumn fx:id="idColumn" styleClass="column-header" text="ID" />
                   <TableColumn fx:id="categoryColumn" text="Loại khoản thu" />

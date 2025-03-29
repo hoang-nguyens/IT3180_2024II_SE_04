@@ -58,37 +58,37 @@ public class HomeController {
     @FXML
     private void onManageFees() {
         handleButtonClick(feeButton);
-        loadPage("/view/fee-management.fxml");
+        loadPage("/view/fee/fee-management.fxml");
     }
 
     @FXML
     private void onManageHome(){
         handleButtonClick(homeButton);
-        loadPage("/view/home-management.fxml");
+        loadPage("/view/homepage/home-management.fxml");
     }
 
     @FXML
     private void onManageResident(){
         handleButtonClick(residentButton);
-        loadPage("/view/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
+        loadPage("/view/homepage/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
     }
 
     @FXML
     private void onManageBill(){
         handleButtonClick(billButton);
-        loadPage("/view/bill-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
+        loadPage("/view/bill/bill-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
     }
 
     @FXML
     private void onManageReport(){
         handleButtonClick(reportButton);
-        loadPage("/view/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
+        loadPage("/view/homepage/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
     }
 
     @FXML
     private void onManageSupport(){
         handleButtonClick(supportButton);
-        loadPage("/view/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
+        loadPage("/view/homepage/home-management.fxml"); //THAY ĐỔI DÒNG NÀY ĐỂ LOAD ĐÚNG TRANG
     }
 
     // Sự kiện khi click vào "Danh sách Người Dùng"

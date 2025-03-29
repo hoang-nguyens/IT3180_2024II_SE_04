@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import services.EmailService;
@@ -29,12 +30,18 @@ public class LoginController {
     @FXML
     private Label loginStatusLabel;
 
+    private static User loggedInUser;
+
     @Autowired
     private UserController userController;
 
     private final UserService userService;
     private final EmailService emailService;
     private final ForgotPasswordService forgotPasswordService;
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
 
     @Autowired
     public LoginController(
@@ -61,10 +68,13 @@ public class LoginController {
             Optional<User> userOpt = userService.loginUser(username, password);
 
             if (userOpt.isPresent()) {
+                loggedInUser = userOpt.get();
                 setLoginSuccess("Đăng nhập thành công!");
                 // Thực hiện chuyển hướng hoặc các hành động tiếp theo
+                Stage loginStage = (Stage) usernameField.getScene().getWindow();
 
-                openHomePage();
+                openHomePage(new Stage());
+                loginStage.close();
 
             } else {
                 setLoginError("Tên đăng nhập hoặc mật khẩu sai!");
@@ -100,17 +110,17 @@ public class LoginController {
         System.out.println(e.getMessage());
     }
 
-    private void openHomePage() {
+    private void openHomePage(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
             Parent root = loader.load();
+            Scene scene = new Scene(root, 1250, 800); // Chỉnh lại kích thước cho đúng với FXML
 
-            // Lấy Stage từ usernameField hoặc bất kỳ thành phần nào
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Trang chủ");
-            stage.show();
-
+            primaryStage.setTitle("HomePage");
+            primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
+            primaryStage.setResizable(false); // Ngăn người dùng chỉnh sửa kích thước
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

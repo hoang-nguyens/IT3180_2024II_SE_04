@@ -210,6 +210,7 @@ public class FeeInsertController {
             fee.setDescription(descriptionArea.getText());
             fee.setEndDate(endDatePicker.getValue());
 
+            System.out.println(fee);
             String requestBody = objectMapper.writeValueAsString(fee);
             System.out.println(requestBody);
             HttpRequest request = null;

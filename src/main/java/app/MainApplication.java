@@ -1,6 +1,7 @@
 package app;
 
 import config.AppConfig;
+import config.SecurityConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Import;
 
 //@SpringBootApplication(scanBasePackages = {"app", "repositories", "controllers", "services", "repositories"})
 @SpringBootApplication
-@Import({AppConfig.class})
+@Import({AppConfig.class, SecurityConfig.class})
 //@SpringBootApplication
 public class MainApplication extends Application {
 

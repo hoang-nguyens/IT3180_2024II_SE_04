@@ -12,12 +12,12 @@
 }
 
 .inner_pane{
-   -fx-background-color: #748CF1;
+   -fx-background-color: #7A9EE6;
    -fx-border-width: 2px 2px 2px 2px;
    -fx-border-radius: 20px;
    -fx-background-radius: 20px;
    -fx-border-style: solid;
-   -fx-border-color: #748CF1;
+   -fx-border-color: #7A9EE6;
 }
 
 .top_bar{
@@ -25,7 +25,7 @@
     -fx-alignment: center-right;
 }
 
-.home_button{
+.clicked_button{
     -fx-background-color: #141313;
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 50px;

@@ -19,11 +19,12 @@ import models.FeeCategory;
 import models.User;
 import models.enums.BillPeriod;
 import models.enums.FeeUnit;
+import models.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import services.FeeCategoryService;
-import services.FeeService;
-import services.UserService;
+import services.InvoiceService;
+import utils.UserUtils;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -31,27 +32,29 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class FeeViewController {
-    private final FeeService feeService;
     private final FeeCategoryService feeCategoryService;
-    private FeeInsertController feeInsertController;
+    private final FeeInsertController feeInsertController;
+    private final InvoiceService invoiceService;
 
-    private final UserService userService;
     @Autowired
-    public FeeViewController(FeeService feeService, FeeCategoryService feeCategoryService, UserService userService, FeeInsertController feeInsertController) {
-        this.feeService = feeService;
+    public FeeViewController(FeeCategoryService feeCategoryService, FeeInsertController feeInsertController, InvoiceService invoiceService) {
         this.feeCategoryService = feeCategoryService;
-        this.userService = userService;
         this.feeInsertController = feeInsertController;
+
+        this.invoiceService = invoiceService;
     }
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
+    private final Set<Role> adminRoles = Set.of(Role.ADMIN, Role.ADMIN_ROOT);
     // sửa lại các cột phải map từ fxml qua controller (đủ cột, not null)
     @FXML
     private TableView<Fee> feeTable;
@@ -85,10 +88,6 @@ public class FeeViewController {
     @FXML
     private Button addButton;
     @FXML
-    private Button updateButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
     private Button insertButton;
     @FXML
     private Button searchButton;
@@ -99,8 +98,10 @@ public class FeeViewController {
     private ObservableList<String> categoryList = FXCollections.observableArrayList();
     private ObservableList<String> subCategoryList = FXCollections.observableArrayList();
 
+
     @FXML
     public void initialize() {
+//        invoiceService.createMonthlyInvoices();
         // Setup table columns
 //        System.out.println("OK !!!!");
         idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
@@ -143,6 +144,12 @@ public class FeeViewController {
                 }
             }
         });
+
+        User currentUser = UserUtils.getCurrentUser();
+        if (currentUser==null || !adminRoles.contains(currentUser.getRole())) {
+            actionColumn.setVisible(false);
+            addButton.setVisible(false);
+        }
         // Load fee data
         loadFees();
         loadCategories();
@@ -150,30 +157,28 @@ public class FeeViewController {
         // Setup combo boxes
         categoryComboBox.setItems(categoryList);
         categoryComboBox.setOnAction(event -> loadSubCategories());
-
-//        categoryComboBox.getEditor().setOnKeyPressed(event -> {
-//            if (event.getCode().toString().equals("ENTER")) {
-//                addCategory();
-//            }
-//        });
-//        subCategoryComboBox.getEditor().setOnKeyPressed(event -> {
-//            if (event.getCode().toString().equals("ENTER")) {
-//                addSubCategory();
-//            }
-//        });
-
-        // Table selection listener
-//        feeTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-//            if (newSelection != null) {
-//                populateForm(newSelection);
-//            }
-//        });
     }
 
     private void loadFees() {
-        List<Fee> fees = feeService.getAllFees();
-        feeList.setAll(fees);
-        feeTable.setItems(feeList);
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/fees"))
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                Fee[] fees = objectMapper.readValue(response.body(), Fee[].class);
+                feeList.setAll(fees);
+                feeTable.setItems(feeList);
+                statusLabel.setText("Tải lên dữ liệu thành công.");
+            } else {
+                statusLabel.setText("Tải lên dữ liệu thất bại.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            statusLabel.setText("Lỗi tải lên dữ liệu !");
+        }
     }
 
     private void loadCategories() {
@@ -192,18 +197,6 @@ public class FeeViewController {
         }
     }
 
-//
-//    private void populateForm(Fee fee) {
-//        categoryComboBox.setValue(fee.getCategory());
-//        subCategoryComboBox.setValue(fee.getSubCategory());
-//        amountField.setText(fee.getAmount().toString());
-//        unitComboBox.setValue(fee.getUnit());
-//        billPeriodComboBox.setValue(fee.getBillPeriod());
-//        descriptionArea.setText(fee.getDescription());
-//        startDatePicker.setValue(fee.getStartDate());
-//        endDatePicker.setValue(fee.getEndDate());
-//    }
-
     private void addCategory() {
         String newCategory = categoryComboBox.getEditor().getText().trim();
         if (newCategory.isEmpty()) {
@@ -211,7 +204,7 @@ public class FeeViewController {
             return;
         }
         if (!categoryList.contains(newCategory)) {
-            FeeCategory newFeeCategory = feeCategoryService.createFeeCategory(newCategory, null);;
+//            FeeCategory newFeeCategory = feeCategoryService.createFeeCategory(newCategory, null);;
             categoryList.add(newCategory);
             categoryComboBox.setItems(FXCollections.observableArrayList(categoryList));
             categoryComboBox.setValue(newCategory);
@@ -231,7 +224,7 @@ public class FeeViewController {
         }
         FeeCategory selectedFeeCategory = feeCategoryService.findTopLevelCategoryByName(selectedCategory);
         if (!subCategoryList.contains(newSubCategory)) {
-            FeeCategory subCategory = feeCategoryService.createFeeCategory(newSubCategory, selectedFeeCategory);
+//            FeeCategory subCategory = feeCategoryService.createFeeCategory(newSubCategory, selectedFeeCategory);
             subCategoryList.add(newSubCategory);
             subCategoryComboBox.setItems(FXCollections.observableArrayList(subCategoryList));
             subCategoryComboBox.setValue(newSubCategory);
@@ -337,18 +330,30 @@ public class FeeViewController {
         String filterCategory = categoryComboBox.getValue();
         String filterSubCategory = subCategoryComboBox.getValue();
         System.out.println(filterCategory + " " + filterSubCategory);
-        if (filterCategory.isEmpty()){
-            filterCategory = null;
+
+        String url = "http://localhost:8080/api/fees";
+        List<String> queryParams = new ArrayList<>();
+        if (filterCategory != null && !filterCategory.isEmpty()) queryParams.add("category=" + filterCategory);
+        if (filterSubCategory != null && !filterSubCategory.isEmpty()) queryParams.add("subCategory=" + filterSubCategory);
+        if (!queryParams.isEmpty()) {
+            url += "?" + String.join("&", queryParams);
         }
-        if (filterSubCategory.isEmpty()){
-            filterSubCategory = null;
+//        List<Fee> filteredFeeList = feeService.getAllFeesByCategoryAndSubCategory(filterCategory, filterSubCategory);
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+            HttpResponse<String> response =  httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            Fee[] filteredFeeList = objectMapper.readValue(response.body(), Fee[].class);
+            feeList.setAll(filteredFeeList);
+            //        System.out.println(filteredFeeList);
+            //        System.out.println(feeList);
+            feeTable.setItems(feeList);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(filterCategory + " " + filterSubCategory);
-        List<Fee> filteredFeeList = feeService.getAllFeesByCategoryAndSubCategory(filterCategory, filterSubCategory);
-        feeList.setAll(filteredFeeList);
-        System.out.println(filteredFeeList);
-        System.out.println(feeList);
-        feeTable.setItems(feeList);
     }
 
     @FXML

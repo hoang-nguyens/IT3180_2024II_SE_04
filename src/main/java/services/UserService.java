@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -98,7 +99,7 @@ public class UserService {
     }
 
     public void updatePasswordByUsername(String username, String newPassword) {
-            String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+        String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
         jdbcTemplate.update(sql, passwordEncoder.encode(newPassword), username);
     }
 
@@ -113,5 +114,8 @@ public class UserService {
         }
     }
 
+    public List<User> getAllUsersWithUserRole() {
+        return userRepository.findByRole(Role.USER);
+    }
 
 }

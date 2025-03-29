@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fee")
+@RequestMapping("/api/fees")
 public class FeeController {
     @Autowired
     private final FeeService feeService;
@@ -24,8 +24,11 @@ public class FeeController {
 
     // Lấy danh sách tất cả khoản thu
     @GetMapping
-    public ResponseEntity<List<Fee>> getAllFees() {
-        return ResponseEntity.ok(feeService.getAllFees());
+    public ResponseEntity<List<Fee>> getFees(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String subCategory
+    ) {
+        return ResponseEntity.ok(feeService.getAllFeesByCategoryAndSubCategory(category, subCategory));
     }
 
     @GetMapping("/{id}")

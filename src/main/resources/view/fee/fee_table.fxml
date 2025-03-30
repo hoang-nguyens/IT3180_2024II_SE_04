@@ -14,7 +14,7 @@
 <VBox alignment="CENTER" prefHeight="512.0" prefWidth="793.0" spacing="10" stylesheets="@../css/table_fee.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FeeViewController">
     <!-- Hàng 1: Nút Thêm Mới -->
     <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="794.0" spacing="10">
-        <Button fx:id="insertButton" onAction="#handleInsert" styleClass="new_button" stylesheets="@../css/table_fee.css" text="Thêm mới" textFill="#f7f3f3" />
+        <Button fx:id="addButton" onAction="#handleAdd" styleClass="new_button" stylesheets="@../css/table_fee.css" text="Thêm mới" textFill="#f7f3f3" />
     </HBox>
 
     <!-- Hàng 2: Form lọc dữ liệu -->

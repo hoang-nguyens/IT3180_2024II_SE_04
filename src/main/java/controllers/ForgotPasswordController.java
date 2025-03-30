@@ -43,7 +43,7 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
     }
 
     @FXML
-    protected void handleSwitchToConfirmForgotPassword() {
+    private void handleSwitchToConfirmForgotPassword() {
         String userName = forgotPasswordUserNameField.getText().trim();
         String newPassword = newPasswordField.getText().trim();
         String cfNewPassword = cfNewPasswordField.getText().trim();
@@ -94,8 +94,8 @@ public class ForgotPasswordController { // Không kế thừa từ UserControlle
         confirmController.setCurAct(2);
         confirmController.setUser(user);
         userController.showConfirmBox();
+        confirmController.startCountdown();
     }
-
     public void clearForgotPassword(){
         newPasswordField.clear();
         cfNewPasswordField.clear();

@@ -71,7 +71,7 @@ public class ConfirmController {
         startCountdown();
     }
 
-    private void startCountdown() {
+    public void startCountdown() {
         if (countdownTimeline != null) {
             countdownTimeline.stop();
         }

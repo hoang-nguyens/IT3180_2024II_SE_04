@@ -150,6 +150,7 @@ public class RegisterController {
         confirmController.setVerificationCode(verificationCode);
         confirmController.setCurAct(1);
         confirmController.setUser(user);
+        confirmController.startCountdown();
     }
 
     private boolean hasEmptyFields(String... fields) {

@@ -18,6 +18,7 @@
         <TableView fx:id="invoiceTable" prefHeight="300" prefWidth="657.0">
             <columns>
                 <TableColumn fx:id="invoiceIdColumn" prefWidth="100" text="Mã Hóa Đơn" />
+                <TableColumn fx:id="payerNameColumn" prefWidth="100" text="Tên chủ hộ" />
                 <TableColumn fx:id="issueDateColumn" prefWidth="120" text="Ngày lập" />
                 <TableColumn fx:id="dueDateColumn" prefWidth="120" text="Hạn thanh toán" />
                 <TableColumn fx:id="categoryColumn" prefWidth="120" text="Loại khoản thu" />

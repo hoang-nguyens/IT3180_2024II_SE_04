@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,7 +40,8 @@ public class InvoiceViewController {
 
     @FXML
     private TableColumn<Invoice, Integer> invoiceIdColumn;
-
+    @FXML
+    private TableColumn<Invoice, String> payerNameColumn;
     @FXML
     private TableColumn<Invoice, String> issueDateColumn;
 
@@ -62,6 +64,7 @@ public class InvoiceViewController {
     private Label statusLabel;
 
     private ObservableList<Invoice> invoiceList = FXCollections.observableArrayList();
+    private User currentUser;
 
     @Autowired
     public InvoiceViewController(InvoiceService invoiceService) {
@@ -70,7 +73,9 @@ public class InvoiceViewController {
 
     @FXML
     public void initialize() {
-//        invoiceService.createMonthlyInvoices();
+        currentUser = UserUtils.getCurrentUser();
+
+        invoiceService.createMonthlyInvoices();
         setupTableColumns();
         loadInvoices();
         updateTotalAmount();
@@ -80,17 +85,22 @@ public class InvoiceViewController {
 
     private void setupTableColumns() {
         invoiceIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        payerNameColumn.setCellValueFactory(cellData -> {
+            User user = cellData.getValue().getUser();
+            return new SimpleStringProperty(user != null ? user.getUsername() : "N/A");
+        });
         issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
         dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
+        if (!adminRoles.contains(currentUser.getRole())) {
+            payerNameColumn.setVisible(false);
+        }
 //        invoiceTable.setItems(invoiceList);
     }
 
     private void loadInvoices() {
-        User currentUser = UserUtils.getCurrentUser();
         if (currentUser == null) {
             statusLabel.setText("Vui lòng đăng nhập !!!");
             return;

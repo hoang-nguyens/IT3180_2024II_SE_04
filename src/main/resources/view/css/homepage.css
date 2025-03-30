@@ -60,3 +60,32 @@
     -fx-font-size: 14px;
 
 }
+
+/* Bo tròn viền của ContextMenu */
+.context-menu {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: white;
+    -fx-border-color: #d1d1d1;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+
+/* Tạo hiệu ứng nổi cho mục "Tài khoản" */
+.menu-item:first-child {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    -fx-font-weight: bold;
+    -fx-padding: 8px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-color: #b0b0b0;
+    -fx-border-width: 1px;
+}
+
+/* Loại bỏ dòng phân cách giữa các mục */
+.separator-menu-item {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+

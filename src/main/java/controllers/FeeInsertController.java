@@ -96,10 +96,19 @@ public class FeeInsertController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    public void setFee(Fee fee){
+
+    public void setFee(Fee fee, int mode){
         this.fee = fee;
         if (fee != null) {
             populateForm(fee);
+        }
+        if (mode == 1) {
+            amountField.setDisable(true);
+            unitComboBox.setDisable(true);
+            billPeriodComboBox.setDisable(true);
+            endDatePicker.setDisable(true);
+            descriptionArea.setDisable(true);
+            saveButton.setVisible(false);
         }
     }
     public Fee getFee() {
@@ -296,9 +305,11 @@ public class FeeInsertController {
 
             // Kiểm tra Ngày bắt đầu
             LocalDate startDate = startDatePicker.getValue();
-            if (startDate == null || startDate.isBefore(LocalDate.now())) {
-                statusLabel.setText("Ngày bắt đầu phải từ hôm nay trở đi!");
-                return false;
+            if (! startDatePicker.isDisabled()){
+                if (startDate == null || startDate.isBefore(LocalDate.now())) {
+                    statusLabel.setText("Ngày bắt đầu phải từ hôm nay trở đi!");
+                    return false;
+                }
             }
 
             // Kiểm tra Ngày kết thúc

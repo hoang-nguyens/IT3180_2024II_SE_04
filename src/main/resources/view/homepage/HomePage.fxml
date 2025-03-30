@@ -21,16 +21,16 @@
          <children>
             <AnchorPane prefHeight="792.0" prefWidth="203.0">
                <children>
-                  <Pane fx:id="inner_pane" layoutX="3.0" layoutY="13.0" prefHeight="57.0" prefWidth="200.0" styleClass="inner_pane">
+                  <Pane fx:id="inner_pane" layoutX="3.0" layoutY="13.0" prefHeight="90.0" prefWidth="200.0" styleClass="inner_pane">
                      <children>
-                        <ImageView fitHeight="58.0" fitWidth="72.0" layoutX="64.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="90.0" fitWidth="81.0" layoutX="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/HomePage/dashboard.png" />
                            </image>
                         </ImageView>
                      </children>
                   </Pane>
-                  <Button fx:id="homeButton" layoutX="17.0" layoutY="90.0" mnemonicParsing="false" onAction="#onManageHome" prefHeight="51.0" prefWidth="172.0" styleClass="clicked_button" text="Home" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="homeButton" layoutX="20.0" layoutY="132.0" mnemonicParsing="false" onAction="#onManageHome" prefHeight="46.0" prefWidth="172.0" styleClass="clicked_button" text="Home" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -41,7 +41,7 @@
                      <font>
                         <Font name="Arial Bold" size="12.0" />
                      </font></Button>
-                  <Button fx:id="residentButton" layoutX="17.0" layoutY="172.0" mnemonicParsing="false" onAction="#onManageResident" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Resident" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="residentButton" layoutX="20.0" layoutY="189.0" mnemonicParsing="false" onAction="#onManageResident" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Resident" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -50,7 +50,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="feeButton" layoutX="17.0" layoutY="226.0" mnemonicParsing="false" onAction="#onManageFees" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Fee" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="feeButton" layoutX="17.0" layoutY="240.0" mnemonicParsing="false" onAction="#onManageFees" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Fee" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -59,7 +59,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="billButton" layoutX="17.0" layoutY="280.0" mnemonicParsing="false" onAction="#onManageBill" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Bill" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="billButton" layoutX="17.0" layoutY="292.0" mnemonicParsing="false" onAction="#onManageBill" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Bill" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,7 +68,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="reportButton" layoutX="17.0" layoutY="332.0" mnemonicParsing="false" onAction="#onManageReport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Report" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="reportButton" layoutX="17.0" layoutY="343.0" mnemonicParsing="false" onAction="#onManageReport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Report" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -77,7 +77,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="supportButton" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#onManageSupport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Support" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="supportButton" layoutX="17.0" layoutY="396.0" mnemonicParsing="false" onAction="#onManageSupport" prefHeight="38.0" prefWidth="172.0" styleClass="other_button" stylesheets="@../css/homepage.css" text="Support" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -86,7 +86,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ImageView fitHeight="98.0" fitWidth="90.0" layoutX="58.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="98.0" fitWidth="90.0" layoutX="58.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/HomePage/icons8-moon-64.png" />
                      </image>
@@ -118,9 +118,23 @@
                                           <MenuItem fx:id="usernameItem" mnemonicParsing="false" text="Tài khoản: [Tên User]" />
                                           <SeparatorMenuItem />
                                           <!-- Đăng xuất -->
-                                          <MenuItem fx:id="logoutItem" mnemonicParsing="false" text="Đăng xuất" onAction="#handleLogOut"/>
+                                          <MenuItem fx:id="logoutItem" mnemonicParsing="false" onAction="#handleLogOut" text="Đăng xuất">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/HomePage/icons8-logout-30.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></MenuItem>
                                           <!-- Thoát ứng dụng -->
-                                          <MenuItem fx:id="exitItem" mnemonicParsing="false" text="Thoát" onAction="#handleQuit"/>
+                                          <MenuItem fx:id="exitItem" mnemonicParsing="false" onAction="#handleQuit" text="Thoát">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/HomePage/icons8-quit-50.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></MenuItem>
                                        </items>
                                     </ContextMenu>
                                  </contextMenu>

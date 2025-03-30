@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.InvoiceViewController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="475.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InvoiceViewController">
 
-    <VBox spacing="10" alignment="TOP_CENTER" prefWidth="600">
+    <VBox alignment="TOP_CENTER" layoutX="130.0" layoutY="19.0" prefHeight="378.0" prefWidth="657.0" spacing="10" stylesheets="@../css/table_fee.css">
         <!-- Tiêu đề -->
-        <Label text="Danh sách hóa đơn cần thanh toán" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Danh sách hóa đơn cần thanh toán" />
 
         <!-- Bảng hiển thị hóa đơn -->
-        <TableView fx:id="invoiceTable" prefHeight="300">
+        <TableView fx:id="invoiceTable" prefHeight="300" prefWidth="657.0">
             <columns>
-                <TableColumn text="Mã Hóa Đơn" fx:id="invoiceIdColumn" prefWidth="100"/>
-                <TableColumn text="Ngày lập" fx:id="issueDateColumn" prefWidth="120"/>
-                <TableColumn text="Hạn thanh toán" fx:id="dueDateColumn" prefWidth="120"/>
-                <TableColumn text="Loại khoản thu" fx:id="categoryColumn" prefWidth="120"/>
-                <TableColumn text="Số tiền" fx:id="amountColumn" prefWidth="100"/>
-                <TableColumn text="Trạng thái" fx:id="statusColumn" prefWidth="100"/>
+                <TableColumn fx:id="invoiceIdColumn" prefWidth="100" text="Mã Hóa Đơn" />
+                <TableColumn fx:id="issueDateColumn" prefWidth="120" text="Ngày lập" />
+                <TableColumn fx:id="dueDateColumn" prefWidth="120" text="Hạn thanh toán" />
+                <TableColumn fx:id="categoryColumn" prefWidth="120" text="Loại khoản thu" />
+                <TableColumn fx:id="amountColumn" prefWidth="100" text="Số tiền" />
+                <TableColumn fx:id="statusColumn" prefWidth="100" text="Trạng thái" />
             </columns>
         </TableView>
 
         <!-- Tổng tiền và Nút Thanh toán -->
-        <HBox spacing="20" alignment="CENTER">
-            <Label text="Tổng số tiền: " style="-fx-font-size: 14px;"/>
-            <Label fx:id="totalAmountLabel" text="0 VNĐ" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
-            <Button text="Thanh toán" fx:id="payButton" style="-fx-background-color: #28a745; -fx-text-fill: white;"/>
+        <HBox alignment="CENTER" spacing="20">
+            <Label style="-fx-font-size: 14px;" text="Tổng số tiền: " />
+            <Label fx:id="totalAmountLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="0 VNĐ" />
+            <Button fx:id="payButton" style="-fx-background-color: #28a745; -fx-text-fill: white;" text="Thanh toán" />
         </HBox>
     </VBox>
-    <Label fx:id="statusLabel" text="Trạng thái" />
+    <Label fx:id="statusLabel" layoutX="387.0" layoutY="424.0" prefHeight="18.0" prefWidth="294.0" />
 </AnchorPane>

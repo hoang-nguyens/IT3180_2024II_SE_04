@@ -16,6 +16,7 @@ import models.enums.InvoiceStatus;
 import models.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import services.InvoiceService;
 import utils.UserUtils;
 
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ import java.util.Set;
 
 @Controller
 public class InvoiceViewController {
-    private final InvoiceController invoiceController;
+    private final InvoiceService invoiceService;
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private final Set<Role> adminRoles = Set.of(Role.ADMIN, Role.ADMIN_ROOT);
@@ -63,12 +64,13 @@ public class InvoiceViewController {
     private ObservableList<Invoice> invoiceList = FXCollections.observableArrayList();
 
     @Autowired
-    public InvoiceViewController(InvoiceController invoiceController) {
-        this.invoiceController = invoiceController;
+    public InvoiceViewController(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
     }
 
     @FXML
     public void initialize() {
+        invoiceService.createMonthlyInvoices();
         setupTableColumns();
         loadInvoices();
         updateTotalAmount();

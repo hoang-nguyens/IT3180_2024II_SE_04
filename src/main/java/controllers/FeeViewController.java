@@ -28,9 +28,11 @@ import utils.UserUtils;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +81,8 @@ public class FeeViewController {
     @FXML
     private TableColumn<Fee, Void> actionColumn;
     @FXML
+    private TableColumn<Fee, Void> viewDetailColumn;
+    @FXML
     private ComboBox<String> categoryComboBox;
     @FXML
     private ComboBox<String> subCategoryComboBox;
@@ -110,10 +114,30 @@ public class FeeViewController {
         amountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
         unitColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUnit()));
         billPeriodColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBillPeriod()));
-        descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
+//        descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
         startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
         endDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDate()));
 
+        viewDetailColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button viewDetailButton = new Button("Xem");
+
+            {
+                viewDetailButton.setOnAction(event -> {
+                    Fee fee = getTableView().getItems().get(getIndex());
+                    handleViewDetails(fee);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(viewDetailButton);
+                }
+            }
+        });
 
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button editButton = new Button("Sửa");
@@ -197,51 +221,29 @@ public class FeeViewController {
         }
     }
 
-    private void addCategory() {
-        String newCategory = categoryComboBox.getEditor().getText().trim();
-        if (newCategory.isEmpty()) {
-            showAlert("Vui lòng chọn danh mục cha trước!");
-            return;
-        }
-        if (!categoryList.contains(newCategory)) {
-//            FeeCategory newFeeCategory = feeCategoryService.createFeeCategory(newCategory, null);;
-            categoryList.add(newCategory);
-            categoryComboBox.setItems(FXCollections.observableArrayList(categoryList));
-            categoryComboBox.setValue(newCategory);
-        }
-    }
-
-    private void addSubCategory() {
-        String selectedCategory = categoryComboBox.getValue(); // Lấy danh mục cha
-        if (selectedCategory.isEmpty()) {
-            showAlert("Vui lòng chọn danh mục cha trước!");
-            return;
-        }
-        String newSubCategory = subCategoryComboBox.getEditor().getText().trim();
-        if (newSubCategory.isEmpty()) {
-            showAlert("Vui lòng nhập danh mục con!");
-            return;
-        }
-        FeeCategory selectedFeeCategory = feeCategoryService.findTopLevelCategoryByName(selectedCategory);
-        if (!subCategoryList.contains(newSubCategory)) {
-//            FeeCategory subCategory = feeCategoryService.createFeeCategory(newSubCategory, selectedFeeCategory);
-            subCategoryList.add(newSubCategory);
-            subCategoryComboBox.setItems(FXCollections.observableArrayList(subCategoryList));
-            subCategoryComboBox.setValue(newSubCategory);
-        }
-    }
-
-    private void openFeeStage(Fee fee){
+    // param mode: 1=view, 2=insert, 3=edit
+    private void openFeeStage(Fee fee, int mode){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/fee/fee_insert.fxml"));
             fxmlLoader.setControllerFactory(MainApplication.springContext::getBean);
             Scene feeScene = new Scene(fxmlLoader.load(), 875, 415);
             Stage feeInsertStage = new Stage();
             feeInsertStage.initModality(Modality.APPLICATION_MODAL);
-            feeInsertStage.setTitle(fee==null ? "Thêm mới khoản thu" : "Cập nhật khoản thu");
+            switch (mode) {
+                case 1:
+                    feeInsertStage.setTitle("Chi tiết khoản thu");
+                    break;
+                case 2:
+                    feeInsertStage.setTitle("Thêm mới khoản thu");
+                    break;
+                case 3:
+                    feeInsertStage.setTitle("Cập nhật khoản thu");
+                    break;
+            }
+//            feeInsertStage.setTitle(fee==null ? "Thêm mới khoản thu" : "Cập nhật khoản thu");
             feeInsertStage.setScene(feeScene);
             feeInsertController.setStage(feeInsertStage);
-            feeInsertController.setFee(fee);
+            feeInsertController.setFee(fee, mode);
             feeInsertStage.showAndWait();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -260,7 +262,7 @@ public class FeeViewController {
 //                    unitComboBox.getValue(), billPeriodComboBox.getValue(), descriptionArea.getText(),
 //                    startDatePicker.getValue(), endDatePicker.getValue());
 
-            openFeeStage(null);
+            openFeeStage(null, 2);
             Fee newFee = feeInsertController.getFee();
             if (newFee != null) {
                 feeList.add(newFee);
@@ -282,7 +284,7 @@ public class FeeViewController {
             statusLabel.setText("Chọn khoản thu để cập nhật!");
             return;
         }
-        openFeeStage(selectedFee);
+        openFeeStage(selectedFee, 3);
         Fee updatedFee = feeInsertController.getFee();
         if (!updatedFee.equals(selectedFee)) {
             for (int i = 0; i < feeList.size(); i++) {
@@ -323,6 +325,10 @@ public class FeeViewController {
 //        }
     }
 
+    @FXML
+    private void handleViewDetails(Fee fee) {
+        openFeeStage(fee, 1);
+    }
 
     @FXML
     private void handleSearch(){
@@ -333,8 +339,8 @@ public class FeeViewController {
 
         String url = "http://localhost:8080/api/fees";
         List<String> queryParams = new ArrayList<>();
-        if (filterCategory != null && !filterCategory.isEmpty()) queryParams.add("category=" + filterCategory);
-        if (filterSubCategory != null && !filterSubCategory.isEmpty()) queryParams.add("subCategory=" + filterSubCategory);
+        if (filterCategory != null && !filterCategory.isEmpty()) queryParams.add("category=" + URLEncoder.encode(filterCategory, StandardCharsets.UTF_8));
+        if (filterSubCategory != null && !filterSubCategory.isEmpty()) queryParams.add("subCategory=" + URLEncoder.encode(filterSubCategory, StandardCharsets.UTF_8));
         if (!queryParams.isEmpty()) {
             url += "?" + String.join("&", queryParams);
         }

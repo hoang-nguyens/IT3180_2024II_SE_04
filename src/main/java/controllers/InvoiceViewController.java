@@ -70,7 +70,7 @@ public class InvoiceViewController {
 
     @FXML
     public void initialize() {
-        invoiceService.createMonthlyInvoices();
+//        invoiceService.createMonthlyInvoices();
         setupTableColumns();
         loadInvoices();
         updateTotalAmount();

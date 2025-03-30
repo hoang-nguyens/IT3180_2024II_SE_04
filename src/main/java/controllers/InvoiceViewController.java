@@ -39,7 +39,8 @@ public class InvoiceViewController {
 
     @FXML
     private TableColumn<Invoice, Integer> invoiceIdColumn;
-
+    @FXML
+    private TableColumn<Invoice, String> roomNumberColumn;
     @FXML
     private TableColumn<Invoice, String> issueDateColumn;
 
@@ -80,6 +81,7 @@ public class InvoiceViewController {
 
     private void setupTableColumns() {
         invoiceIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
         dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
